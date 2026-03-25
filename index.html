@@ -250,7 +250,8 @@ input {
 .room-card.selected .room-check {
   opacity: 1; transform: scale(1);
 }
-.room-icon { font-size: 1.6rem; opacity: 0.7; }
+.room-icon { font-size: 1.6rem; color: var(--gold); }
+.room-icon svg { width: 1.6rem; height: 1.6rem; }
 .room-name {
   font-size: 0.85rem;
   font-weight: 500;
@@ -324,7 +325,7 @@ input {
 }
 
 .system-header { text-align: center; margin-bottom: 32px; }
-.system-icon { font-size: 1.5rem; margin-bottom: 6px; opacity: 0.6; }
+.system-icon { font-size: 1.5rem; margin-bottom: 6px; color: var(--gold); }
 .system-name {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
@@ -634,7 +635,7 @@ input {
   display: flex; align-items: center; gap: 12px;
 }
 .summary-section-icon {
-  font-size: 1.1rem; opacity: 0.6;
+  font-size: 1.1rem; color: var(--gold);
 }
 .summary-section-name {
   font-family: var(--font-display);
@@ -2026,18 +2027,18 @@ const SYSTEMS = [
 ];
 
 const ROOMS = [
-  { id: 'great-room', name: 'Great Room', icon: '🏠' },
-  { id: 'primary-suite', name: 'Primary Suite', icon: '🛏️' },
-  { id: 'kitchen', name: 'Kitchen', icon: '🍳' },
-  { id: 'theater', name: 'Theater', icon: '🎬' },
-  { id: 'office', name: 'Office', icon: '💼' },
-  { id: 'outdoor', name: 'Outdoor', icon: '🌿' },
-  { id: 'garage', name: 'Garage', icon: '🚗' },
-  { id: 'wine-cellar', name: 'Wine Cellar', icon: '🍷' },
-  { id: 'gym', name: 'Gym', icon: '🏋️' },
-  { id: 'guest-suite', name: 'Guest Suite', icon: '🛋️' },
-  { id: 'kids-room', name: 'Kids Room', icon: '🧒' },
-  { id: 'mudroom', name: 'Mudroom', icon: '🚪' }
+  { id: 'great-room', name: 'Great Room', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 14 15 14 15 21"/></svg>' },
+  { id: 'primary-suite', name: 'Primary Suite', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V7a1 1 0 011-1h18a1 1 0 011 1v10"/><path d="M2 13h20"/><path d="M4 13V9h16v4"/><rect x="1" y="17" width="22" height="2" rx="1"/></svg>' },
+  { id: 'kitchen', name: 'Kitchen', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 0a4 4 0 004-4M12 8a4 4 0 01-4-4"/><path d="M12 8v14"/><path d="M8 22h8"/><circle cx="12" cy="11" r="1"/></svg>' },
+  { id: 'theater', name: 'Theater', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><polygon points="10 9 10 15 15 12 10 9"/><line x1="2" y1="20" x2="7" y2="20"/><line x1="17" y1="20" x2="22" y2="20"/></svg>' },
+  { id: 'office', name: 'Office', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 7 17 2 7 2 7 7"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg>' },
+  { id: 'outdoor', name: 'Outdoor', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L7 10h10L12 2z"/><path d="M12 10L5 22h14L12 10z"/><line x1="12" y1="22" x2="12" y2="18"/></svg>' },
+  { id: 'garage', name: 'Garage', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 104 0m6 0a2 2 0 104 0"/><path d="M3 17h2m4 0h6m4 0h2"/><path d="M5 17V9l2-4h10l2 4v8"/><path d="M5 9h14"/></svg>' },
+  { id: 'wine-cellar', name: 'Wine Cellar', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8l-1 7a4 4 0 01-3 3.87V18h3v2H9v-2h3v-5.13A4 4 0 019 9L8 2z"/><line x1="8" y1="5" x2="16" y2="5"/></svg>' },
+  { id: 'gym', name: 'Gym', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5v14M18 5v14M3 8h3M3 16h3M18 8h3M18 16h3M6 12h12"/><rect x="3" y="8" width="3" height="8" rx="1"/><rect x="18" y="8" width="3" height="8" rx="1"/></svg>' },
+  { id: 'guest-suite', name: 'Guest Suite', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10V7a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/><path d="M4 15v3a1 1 0 001 1h14a1 1 0 001-1v-3"/><path d="M2 13a2 2 0 012-2h16a2 2 0 012 2v2H2v-2z"/><circle cx="8" cy="8" r="1.5"/></svg>' },
+  { id: 'kids-room', name: 'Kids Room', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0112 4.5 2.5 2.5 0 0114.5 2"/><circle cx="12" cy="8" r="4"/><path d="M12 12v4"/><path d="M8 22l4-6 4 6"/></svg>' },
+  { id: 'mudroom', name: 'Mudroom', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M12 4v16"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg>' }
 ];
 
 // ===== STATE =====
@@ -2105,7 +2106,7 @@ const checkSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="#0E1015" stroke-w
 // ===== ROOMS =====
 function renderRooms() {
   const grid = document.getElementById('roomsGrid');
-  const allRooms = [...ROOMS, ...state.customRooms.map(name => ({ id: 'custom-' + name.toLowerCase().replace(/\s+/g,'-'), name, icon: '✦' }))];
+  const allRooms = [...ROOMS, ...state.customRooms.map(name => ({ id: 'custom-' + name.toLowerCase().replace(/\s+/g,'-'), name, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' }))];
 
   grid.innerHTML = allRooms.map(room => `
     <div class="room-card ${state.selectedRooms.includes(room.id) ? 'selected' : ''}"
