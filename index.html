@@ -2050,7 +2050,938 @@ h1, h2, h3, h4, h5 {
     padding: 36px 20px 28px;
   }
 }
+
+/* ============================================
+   ENHANCEMENT 6: Micro-animations
+   ============================================ */
+
+/* Screen transitions: refined fade + slide */
+.screen {
+  display: none;
+  opacity: 0;
+  min-height: 100vh;
+  transition: opacity 600ms var(--ease);
+  transform: translateY(12px);
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.screen.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tile hover: subtle scale + gold border glow */
+.tile:hover, .featured-tile:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 0 24px rgba(214,160,65,0.08);
+}
+
+/* Tier card selection pulse */
+@keyframes tierSelectPulse {
+  0% { box-shadow: 0 0 0 0 rgba(214,160,65,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(214,160,65,0); }
+  100% { box-shadow: 0 0 40px rgba(214,160,65,0.08); }
+}
+
+.tier-card.selected {
+  animation: tierSelectPulse 600ms var(--ease) forwards;
+}
+
+/* Room selection bounce */
+@keyframes roomBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.04); }
+  60% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.room-chip.selected {
+  animation: roomBounce 400ms var(--ease) forwards;
+}
+
+/* System toggle smooth slide */
+.system-toggle {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.system-toggle::after {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Profile cards staggered fade-in */
+@keyframes profileCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-card {
+  opacity: 0;
+  animation: profileCardIn 500ms var(--ease-out) forwards;
+}
+
+.profile-card:nth-child(1) { animation-delay: 80ms; }
+.profile-card:nth-child(2) { animation-delay: 160ms; }
+.profile-card:nth-child(3) { animation-delay: 240ms; }
+.profile-card:nth-child(4) { animation-delay: 320ms; }
+.profile-card:nth-child(5) { animation-delay: 400ms; }
+.profile-card:nth-child(6) { animation-delay: 480ms; }
+
+/* Voice FAB breathing animation when idle */
+@keyframes fabBreathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(214,160,65,0.1); }
+  50% { box-shadow: 0 0 20px 4px rgba(214,160,65,0.15); }
+}
+
+.voice-fab.visible .voice-fab-btn {
+  animation: fabBreathe 4s ease-in-out infinite;
+}
+
+.voice-fab:hover .voice-fab-btn {
+  animation: none;
+}
+
+/* Progress dots smooth fill */
+.progress-dot {
+  transition: all 500ms var(--ease);
+  transform: scale(1);
+}
+
+.progress-dot.explored {
+  transform: scale(1.15);
+}
+
+/* Narrative text fade-in stagger for deep-dive */
+@keyframes narrativeFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.narrative-section h1 {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 100ms forwards;
+}
+
+.narrative-tagline {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 250ms forwards;
+}
+
+.narrative-text {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 400ms forwards;
+}
+
+.narrative-divider {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 550ms forwards;
+}
+
+.what-lives-here {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 650ms forwards;
+}
+
+/* Decision section fade in */
+.decision-section {
+  opacity: 0;
+  animation: narrativeFadeIn 700ms var(--ease-out) 750ms forwards;
+}
+
+/* Gold line subtle shimmer */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ============================================
+   SCREEN: Room Intake (between Profile & Phase 2)
+   ============================================ */
+
+.rooms-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.rooms-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.rooms-header p {
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.rooms-count {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-bottom: 32px;
+  letter-spacing: 0.04em;
+}
+
+.rooms-count span {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.renovation-note {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 24px;
+  padding: 12px 20px;
+  background: var(--gold-glow);
+  border: 1px solid rgba(214,160,65,0.12);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Floor sections */
+.floor-section {
+  margin-bottom: 24px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.floor-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background 300ms var(--ease);
+  user-select: none;
+}
+
+.floor-section-header:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.floor-section-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.floor-section-count {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+}
+
+.floor-section-chevron {
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-faint);
+  transition: transform 400ms var(--ease);
+}
+
+.floor-section.collapsed .floor-section-chevron {
+  transform: rotate(-90deg);
+}
+
+.floor-section-body {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  transition: max-height 500ms var(--ease), opacity 400ms var(--ease), padding 400ms var(--ease);
+  max-height: 500px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.floor-section.collapsed .floor-section-body {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Room chips */
+.room-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--card-border);
+  padding: 10px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+  user-select: none;
+  position: relative;
+}
+
+.room-chip:hover {
+  border-color: var(--card-border-hover);
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+}
+
+.room-chip.selected {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.room-chip.selected::after {
+  content: '\2713';
+  font-size: 0.7rem;
+  margin-left: 2px;
+}
+
+.room-chip .room-chip-remove {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255,60,60,0.15);
+  color: #ff6b6b;
+  font-size: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 4px;
+  border: none;
+  line-height: 1;
+  padding: 0;
+  transition: all 200ms var(--ease);
+}
+
+.room-chip.custom .room-chip-remove {
+  display: inline-flex;
+}
+
+.room-chip .room-chip-remove:hover {
+  background: rgba(255,60,60,0.3);
+}
+
+/* Custom room input */
+.custom-room-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.custom-room-input {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed var(--card-border);
+  padding: 10px 16px;
+  border-radius: 24px;
+  outline: none;
+  transition: border-color 300ms var(--ease);
+  width: 200px;
+  display: none;
+}
+
+.custom-room-input:focus {
+  border-color: var(--gold);
+  border-style: solid;
+}
+
+.custom-room-input.visible {
+  display: block;
+}
+
+.add-custom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  background: none;
+  border: 1px dashed rgba(255,255,255,0.1);
+  padding: 10px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 300ms var(--ease);
+}
+
+.add-custom-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Room system indicator dots on chips */
+.room-chip-dots {
+  display: flex;
+  gap: 2px;
+  margin-left: 4px;
+}
+
+.room-chip-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+/* Rooms actions */
+.rooms-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ============================================
+   ENHANCEMENT 2: Improved Phase 2 
+   ============================================ */
+
+/* Select all rooms action */
+.select-all-rooms {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 300ms var(--ease);
+}
+
+.select-all-rooms:hover {
+  color: var(--gold);
+  background: var(--gold-glow);
+}
+
+/* Room progress mini-bar */
+.room-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 1px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.room-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 1px;
+  transition: width 400ms var(--ease);
+  opacity: 0.6;
+}
+
+/* Auto badge */
+.badge-auto {
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(214,160,65,0.25);
+}
+
+/* Phase 2 bottom CTA revised */
+.phase2-bottom-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* Warning for rooms without systems */
+.phase2-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: #e8a040;
+  background: rgba(232,160,64,0.08);
+  border: 1px solid rgba(232,160,64,0.15);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  margin-top: 12px;
+}
+
+.phase2-warning svg {
+  width: 16px;
+  height: 16px;
+  stroke: #e8a040;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   ENHANCEMENT 3: Print Stylesheet for PDF Export
+   ============================================ */
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    background: #0E1015 !important;
+    color: #F5F0E8 !important;
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide everything except print content */
+  .screen, .voice-fab, .voice-overlay, .site-footer {
+    display: none !important;
+  }
+
+  #printContent {
+    display: block !important;
+    padding: 48px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .print-logo {
+    display: block;
+    max-width: 200px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  .print-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #D6A041;
+    margin-bottom: 8px;
+  }
+
+  .print-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #8A8580;
+    margin-bottom: 32px;
+  }
+
+  .print-divider {
+    width: 48px;
+    height: 1px;
+    background: #D6A041;
+    margin: 24px 0;
+    opacity: 0.5;
+  }
+
+  .print-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #D6A041;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+
+  .print-origin {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #8A8580;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-style: italic;
+    max-width: 600px;
+  }
+
+  .print-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .print-card {
+    background: #161920;
+    border: 1px solid rgba(214,160,65,0.12);
+    border-radius: 6px;
+    padding: 20px;
+    page-break-inside: avoid;
+  }
+
+  .print-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #D6A041;
+    margin-bottom: 6px;
+  }
+
+  .print-card-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #F5F0E8;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  .print-lifestyle-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .print-lifestyle-label {
+    color: #8A8580;
+  }
+
+  .print-lifestyle-value {
+    color: #F5F0E8;
+  }
+
+  .print-dream-quote {
+    background: rgba(214,160,65,0.06);
+    border-left: 3px solid #D6A041;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #E8C67A;
+    line-height: 1.6;
+  }
+
+  .print-rooms-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .print-room-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: #D6A041;
+    background: rgba(214,160,65,0.08);
+    border: 1px solid rgba(214,160,65,0.15);
+    padding: 4px 12px;
+    border-radius: 14px;
+  }
+
+  .print-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(214,160,65,0.2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    color: #5C5853;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  /* Hide the button that triggered print */
+  .btn-print { display: none !important; }
+}
+
+/* ============================================
+   ENHANCEMENT 4: Lifestyle Data on Profile
+   ============================================ */
+
+.profile-section-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 48px auto;
+  opacity: 0.3;
+}
+
+.profile-section-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.lifestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 32px;
+}
+
+.lifestyle-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  animation: profileCardIn 500ms var(--ease-out) forwards;
+}
+
+.lifestyle-card:nth-child(1) { animation-delay: 100ms; }
+.lifestyle-card:nth-child(2) { animation-delay: 180ms; }
+.lifestyle-card:nth-child(3) { animation-delay: 260ms; }
+.lifestyle-card:nth-child(4) { animation-delay: 340ms; }
+.lifestyle-card:nth-child(5) { animation-delay: 420ms; }
+.lifestyle-card:nth-child(6) { animation-delay: 500ms; }
+.lifestyle-card:nth-child(7) { animation-delay: 580ms; }
+.lifestyle-card:nth-child(8) { animation-delay: 660ms; }
+
+.lifestyle-label {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.lifestyle-value {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.dream-feature-callout {
+  max-width: 900px;
+  margin: 0 auto 32px;
+  background: var(--gold-glow);
+  border: 1px solid rgba(214,160,65,0.15);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+}
+
+.dream-feature-label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+
+.dream-feature-text {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold-light);
+  line-height: 1.6;
+}
+
+/* Print button */
+.btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+}
+
+.btn-print:hover {
+  color: var(--gold);
+  border-color: rgba(214,160,65,0.3);
+}
+
+.btn-print svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+/* ============================================
+   ENHANCEMENT 5: Mobile Responsive Polish
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .lifestyle-grid {
+    grid-template-columns: 1fr;
+  }
+  .rooms-actions {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .rooms-header h2 {
+    font-size: 1.8rem;
+  }
+  .floor-section-body {
+    gap: 8px;
+  }
+  .room-chip {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
+  .lifestyle-grid {
+    grid-template-columns: 1fr;
+  }
+  .dream-feature-callout {
+    padding: 20px 22px;
+  }
+  .dream-feature-text {
+    font-size: 1.05rem;
+  }
+  /* Voice modal fills more of screen */
+  .voice-modal {
+    width: 95%;
+    max-width: none;
+    padding: 36px 24px 28px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  /* Deep-dive narrative padding */
+  .narrative-section {
+    padding: 0 4px;
+  }
+  .narrative-text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+  /* Phase 2 summary responsive */
+  .phase2-summary {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  .phase2-stat {
+    flex: 1 1 40%;
+    min-width: 80px;
+  }
+  /* Profile actions stack */
+  .profile-actions {
+    gap: 12px;
+  }
+  .profile-actions .btn-filled,
+  .profile-actions .btn-ghost,
+  .profile-actions .btn-print {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  /* Full-width deep-dive CTA button */
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .screen-inner {
+    padding: 32px 16px;
+  }
+  .welcome-content {
+    padding: 40px 16px;
+  }
+  .welcome-origin {
+    font-size: 0.9rem;
+  }
+  .btn-gold {
+    width: 100%;
+    text-align: center;
+    padding: 16px 24px;
+  }
+  .tiles-grid {
+    gap: 14px;
+  }
+  .tile {
+    padding: 24px 20px;
+  }
+  .featured-tile {
+    padding: 28px 20px;
+  }
+  .tier-cards {
+    gap: 14px;
+  }
+  .tier-card {
+    padding: 28px 22px;
+  }
+  .rooms-header h2 {
+    font-size: 1.5rem;
+  }
+  .floor-section-header {
+    padding: 16px 18px;
+  }
+  .floor-section-body {
+    padding: 0 18px 18px;
+  }
+  .phase2-header h2 {
+    font-size: 1.6rem;
+  }
+  .phase2-stat-value {
+    font-size: 1.4rem;
+  }
+  /* Voice modal: full screen-like */
+  .voice-modal {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    position: fixed;
+    bottom: 0;
+    max-height: 85vh;
+  }
+  .voice-overlay {
+    align-items: flex-end;
+  }
+}
+
 </style>
+
 </head>
 <body>
 
@@ -2137,10 +3068,35 @@ h1, h2, h3, h4, h5 {
       <p>A portrait of the home you're imagining</p>
     </div>
     <div class="profile-grid" id="profileGrid"></div>
+    <div id="profileLifestyle"></div>
     <div class="profile-actions">
       <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
-      <button class="btn-ghost" onclick="navigateTo('phase2')">Continue to Design Phase →</button>
+      <button class="btn-filled" onclick="navigateTo('rooms')" style="background: transparent; color: var(--gold); border-color: var(--gold);">Define Your Rooms →</button>
+      <button class="btn-print" onclick="printProfile()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Summary</button>
       <button class="btn-ghost" onclick="navigateTo('tiles')">← Back to Experiences</button>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </footer>
+</div>
+
+
+<!-- ==========================================
+     SCREEN: Room Intake
+     ========================================== -->
+<div id="rooms" class="screen">
+  <div class="screen-inner">
+    <a href="#" onclick="navigateTo('welcome'); return false;" style="display:block; text-align:center; margin-bottom:24px;"><img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:180px; height:auto; opacity:0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.95" onmouseout="this.style.opacity=0.7"></a>
+    <div class="rooms-header">
+      <h2>Define Your Spaces</h2>
+      <p>Tell us about the rooms in your home — we'll map your experience choices to each one.</p>
+    </div>
+    <div class="rooms-count" id="roomsCount"></div>
+    <div id="roomsBuilder"></div>
+    <div class="rooms-actions">
+      <button class="btn-ghost" onclick="navigateTo('profile')">← Back to Profile</button>
+      <button class="btn-filled" onclick="confirmRoomsAndContinue()">Continue to Design Phase →</button>
     </div>
   </div>
   <footer class="site-footer">
@@ -2155,9 +3111,9 @@ h1, h2, h3, h4, h5 {
   <div class="screen-inner">
     <a href="#" onclick="navigateTo('welcome'); return false;" style="display:block; text-align:center; margin-bottom:24px;"><img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:180px; height:auto; opacity:0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.95" onmouseout="this.style.opacity=0.7"></a>
     <div class="deepdive-nav">
-      <button class="back-link" onclick="navigateTo('profile')">
+      <button class="back-link" onclick="navigateTo('rooms')">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Back to Profile
+        Back to Rooms
       </button>
     </div>
     <div class="phase2-header">
@@ -2179,7 +3135,8 @@ h1, h2, h3, h4, h5 {
       <p class="phase2-cta-text">Your experience map is ready.</p>
       <div class="phase2-cta-buttons">
         <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
-        <button class="btn-ghost" onclick="navigateTo('profile')">← Revise Your Profile</button>
+        <button class="btn-print" onclick="printProfile()" style="margin-top:4px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Experience Summary</button>
+        <button class="btn-ghost" onclick="navigateTo('rooms')">← Revise Your Rooms</button>
       </div>
     </div>
   </div>
@@ -2316,6 +3273,7 @@ const DEFAULT_STATE = {
     perimeter: { wanted: null, depth: null },
     continuity: { wanted: null, level: null }
   },
+  rooms: [],
   phase2: {
     rooms: [
       { name: "Great Room", floor: "1st Floor" },
@@ -2366,6 +3324,7 @@ function loadState() {
       state.selections = { ...DEFAULT_STATE.selections, ...state.selections };
       state.phase2 = { ...DEFAULT_STATE.phase2, ...state.phase2 };
       if (!state.phase2.roomSystems) state.phase2.roomSystems = {};
+      if (!state.rooms) state.rooms = [];
     } else {
       state = JSON.parse(JSON.stringify(DEFAULT_STATE));
     }
@@ -2413,6 +3372,7 @@ function navigateTo(screenId) {
     // Render screen-specific content
     if (screenId === 'tiles') renderTiles();
     if (screenId === 'profile') renderProfile();
+    if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
   }, 350);
 }
@@ -2787,6 +3747,7 @@ function renderProfile() {
   cards += profileCard('Continuity', contValue);
 
   grid.innerHTML = cards;
+  renderProfileLifestyle();
 }
 
 function profileCard(name, value, subItems) {
@@ -2945,6 +3906,7 @@ function renderRoomPanel() {
         state.phase2.roomSystems[room.name] = getDefaultSystems(room);
       }
       const systemCount = (state.phase2.roomSystems[room.name] || []).length;
+      const progressPct = Math.round((systemCount / 6) * 100);
       const dots = Array(Math.min(systemCount, 6)).fill('<span class="room-dot"></span>').join('');
       html += `
         <div class="room-item ${globalIdx === state.phase2.selectedRoom ? 'active' : ''}" onclick="selectRoom(${globalIdx})">
@@ -2952,7 +3914,7 @@ function renderRoomPanel() {
             <span class="room-item-name">${room.name}</span>
             <div class="room-dots">${dots}</div>
           </div>
-          <button class="room-remove" onclick="event.stopPropagation(); removeRoom(${globalIdx})" title="Remove room">×</button>
+          <span class="room-system-count">${systemCount}</span>
         </div>
       `;
     });
@@ -2991,15 +3953,25 @@ function renderSystemPanel() {
     const isAuto = autoSystems.includes(sysKey);
     const desc = getSystemDescription(roomKey, sysKey);
 
+    // Count how many rooms have this system
+    let roomsWithSystem = 0;
+    state.phase2.rooms.forEach(r => {
+      if (state.phase2.roomSystems[r.name] && state.phase2.roomSystems[r.name].includes(sysKey)) roomsWithSystem++;
+    });
+    const allHaveIt = roomsWithSystem === state.phase2.rooms.length;
+
     // Build meta badges
     let metaHtml = '';
     if (isActive && isAuto) {
-      metaHtml += '<span class="system-card-badge badge-profile">From your profile</span>';
+      metaHtml += '<span class="system-card-badge badge-auto">Auto</span>';
     }
     // Show tier badge for illumination if user selected a tier
     if (sysKey === 'illumination' && isActive && sel.illumination.tier !== null) {
       metaHtml += `<span class="system-card-badge badge-tier">${tierNames[sel.illumination.tier]}</span>`;
     }
+
+    // Select all button
+    const selectAllHtml = `<button class="select-all-rooms" onclick="event.stopPropagation(); ${allHaveIt ? "removeSystemFromAllRooms('" + sysKey + "')" : "addSystemToAllRooms('" + sysKey + "')"}" title="${allHaveIt ? 'Remove from all rooms' : 'Add to all rooms'}">${allHaveIt ? '− All Rooms' : '+ All Rooms'}</button>`;
 
     return `
       <div class="system-card ${isActive ? 'active' : ''}" onclick="toggleSystem('${roomKey}', '${sysKey}')">
@@ -3008,7 +3980,7 @@ function renderSystemPanel() {
           <div class="system-toggle"></div>
         </div>
         <div class="system-card-desc">${desc}</div>
-        ${metaHtml ? `<div class="system-card-meta">${metaHtml}</div>` : ''}
+        <div class="system-card-meta">${metaHtml}${selectAllHtml}</div>
       </div>
     `;
   }).join('');
@@ -3158,6 +4130,18 @@ function renderPhase2Summary() {
   });
   const levelCount = activeLevels.size;
 
+  // Count rooms without any system (besides autonomy which is always there)
+  let emptyRooms = 0;
+  state.phase2.rooms.forEach(room => {
+    const sys = state.phase2.roomSystems[room.name] || [];
+    if (sys.length === 0 || (sys.length === 1 && sys[0] === 'autonomy')) emptyRooms++;
+  });
+
+  let warningHtml = '';
+  if (emptyRooms > 0) {
+    warningHtml = '<div class="phase2-warning"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>' + emptyRooms + ' room' + (emptyRooms > 1 ? 's' : '') + ' without dedicated systems</div>';
+  }
+
   container.innerHTML = `
     <div class="phase2-stat">
       <div class="phase2-stat-value">${roomCount}</div>
@@ -3173,9 +4157,9 @@ function renderPhase2Summary() {
     </div>
     <div class="phase2-stat">
       <div class="phase2-stat-value">${topSystem ? capitalize(topSystem[0]) : '—'}</div>
-      <div class="phase2-stat-label">Most Common System</div>
+      <div class="phase2-stat-label">Most Common</div>
     </div>
-  `;
+  ` + warningHtml;
 }
 
 function capitalize(s) {
@@ -3210,17 +4194,393 @@ function init() {
     if (screenId === 'tiles') renderTiles();
     if (screenId === 'deepdive' && state.currentCategory) renderDeepDive(state.currentCategory);
     if (screenId === 'profile') renderProfile();
+    if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
   }
 }
 
 document.addEventListener('DOMContentLoaded', init);
 
+
+// ============================================
+// ROOM INTAKE SCREEN
+// ============================================
+
+const ROOM_SUGGESTIONS = {
+  '1st Floor': ['Great Room', 'Kitchen', 'Dining Room', 'Mudroom', 'Foyer', 'Powder Room', 'Laundry'],
+  '2nd Floor': ['Primary Suite', 'Primary Bath', 'Guest Suite', 'Office/Study', 'Kids Room', 'Bonus Room'],
+  'Basement': ['Theater', 'Wine Cellar', 'Gym', 'Game Room', 'Media Room'],
+  'Exterior': ['Outdoor Living', 'Pool/Spa', 'Garage', 'Cabana', 'Garden']
+};
+
+function renderRoomsScreen() {
+  const builder = document.getElementById('roomsBuilder');
+  const countEl = document.getElementById('roomsCount');
+  
+  // Pre-populate rooms from phase2 if rooms array is empty but phase2 has rooms from voice
+  if (state.rooms.length === 0 && state.phase2.rooms.length > 0) {
+    // Check if phase2 rooms differ from defaults (voice captured custom rooms)
+    const defaultNames = ['Great Room','Kitchen','Dining','Mudroom','Primary Suite','Primary Bath','Guest Suite','Office','Theater','Wine Cellar','Garage','Outdoor Living'];
+    const hasCustom = state.phase2.rooms.some(r => !defaultNames.includes(r.name));
+    if (hasCustom) {
+      state.rooms = state.phase2.rooms.map(r => ({...r}));
+    }
+  }
+  
+  const isRenovation = state.intake && state.intake.projectType === 'renovation';
+  
+  let html = '';
+  
+  if (isRenovation) {
+    html += '<div class="renovation-note">Select the rooms you\'d like to include in your technology upgrade.</div>';
+  }
+  
+  const floors = ['1st Floor', '2nd Floor', 'Basement', 'Exterior'];
+  
+  floors.forEach(floor => {
+    const suggestions = ROOM_SUGGESTIONS[floor] || [];
+    const selectedInFloor = state.rooms.filter(r => r.floor === floor);
+    const selectedNames = selectedInFloor.map(r => r.name);
+    const customRooms = selectedInFloor.filter(r => !suggestions.includes(r.name));
+    
+    html += '<div class="floor-section" id="floor-' + floor.replace(/\s+/g, '-') + '">';
+    html += '<div class="floor-section-header" onclick="toggleFloorSection(this.parentElement)">';
+    html += '<div>';
+    html += '<span class="floor-section-title">' + floor + '</span>';
+    html += ' <span class="floor-section-count">' + selectedInFloor.length + ' selected</span>';
+    html += '</div>';
+    html += '<svg class="floor-section-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    html += '</div>';
+    
+    html += '<div class="floor-section-body">';
+    
+    // Suggested rooms
+    suggestions.forEach(name => {
+      const isSelected = selectedNames.includes(name);
+      html += '<div class="room-chip ' + (isSelected ? 'selected' : '') + '" onclick="toggleRoomSelection(\'' + escapeQuotes(name) + '\', \'' + floor + '\')">' + name + '</div>';
+    });
+    
+    // Custom rooms
+    customRooms.forEach(room => {
+      html += '<div class="room-chip selected custom" onclick="toggleRoomSelection(\'' + escapeQuotes(room.name) + '\', \'' + floor + '\')">' + room.name + '<button class="room-chip-remove" onclick="event.stopPropagation(); removeCustomRoom(\'' + escapeQuotes(room.name) + '\', \'' + floor + '\')">×</button></div>';
+    });
+    
+    // Add custom button & input
+    html += '<button class="add-custom-btn" onclick="showCustomRoomInput(\'' + floor + '\')">+ Custom Room</button>';
+    html += '<input class="custom-room-input" id="customInput-' + floor.replace(/\s+/g, '-') + '" placeholder="Room name..." onkeydown="handleCustomRoom(event, \'' + floor + '\')">';
+    
+    html += '</div></div>';
+  });
+  
+  builder.innerHTML = html;
+  
+  // Update count
+  const totalSelected = state.rooms.length;
+  countEl.innerHTML = '<span>' + totalSelected + '</span> rooms selected';
+}
+
+function escapeQuotes(str) {
+  return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+}
+
+function toggleFloorSection(el) {
+  el.classList.toggle('collapsed');
+}
+
+function toggleRoomSelection(name, floor) {
+  const idx = state.rooms.findIndex(r => r.name === name && r.floor === floor);
+  if (idx > -1) {
+    state.rooms.splice(idx, 1);
+  } else {
+    state.rooms.push({ name, floor });
+  }
+  saveState();
+  renderRoomsScreen();
+}
+
+function removeCustomRoom(name, floor) {
+  const idx = state.rooms.findIndex(r => r.name === name && r.floor === floor);
+  if (idx > -1) {
+    state.rooms.splice(idx, 1);
+    saveState();
+    renderRoomsScreen();
+  }
+}
+
+function showCustomRoomInput(floor) {
+  const id = 'customInput-' + floor.replace(/\s+/g, '-');
+  const input = document.getElementById(id);
+  input.classList.add('visible');
+  input.focus();
+}
+
+function handleCustomRoom(e, floor) {
+  if (e.key === 'Enter') {
+    const name = e.target.value.trim();
+    if (name && !state.rooms.find(r => r.name === name && r.floor === floor)) {
+      state.rooms.push({ name, floor });
+      e.target.value = '';
+      e.target.classList.remove('visible');
+      saveState();
+      renderRoomsScreen();
+    }
+  }
+  if (e.key === 'Escape') {
+    e.target.value = '';
+    e.target.classList.remove('visible');
+  }
+}
+
+function confirmRoomsAndContinue() {
+  // Copy rooms to phase2
+  if (state.rooms.length > 0) {
+    state.phase2.rooms = state.rooms.map(r => ({...r}));
+    // Reset room systems for the new room list
+    state.phase2.roomSystems = {};
+    state.phase2.selectedRoom = 0;
+  }
+  saveState();
+  navigateTo('phase2');
+}
+
+// ============================================
+// ENHANCED PROFILE RENDERER (with lifestyle)
+// ============================================
+
+
+function renderProfileLifestyle() {
+  const container = document.getElementById('profileLifestyle');
+  if (!container) return;
+  
+  let html = '';
+  
+  // About Your Project section
+  if (state.intake && Object.keys(state.intake).length > 0) {
+    html += '<div class="profile-section-divider"></div>';
+    html += '<h3 class="profile-section-title">About Your Project</h3>';
+    html += '<div class="lifestyle-grid">';
+    
+    const intake = state.intake;
+    if (intake.projectType) {
+      const typeLabel = intake.projectType === 'new_build' ? 'New Build' : intake.projectType === 'renovation' ? 'Renovation' : intake.projectType;
+      html += lifestyleCard('Project Type', typeLabel);
+    }
+    if (intake.stage) html += lifestyleCard('Stage', intake.stage);
+    if (intake.location) html += lifestyleCard('Location', intake.location);
+    if (intake.architectBuilder) html += lifestyleCard('Architect / Builder', intake.architectBuilder);
+    if (intake.timeline) html += lifestyleCard('Timeline', intake.timeline);
+    if (intake.hasDrawings) html += lifestyleCard('Has Drawings', intake.hasDrawings === 'yes' ? 'Yes' : intake.hasDrawings === 'no' ? 'No' : intake.hasDrawings);
+    if (intake.name) html += lifestyleCard('Name', intake.name);
+    
+    html += '</div>';
+  }
+  
+  // Your Lifestyle section
+  if (state.lifestyle && Object.keys(state.lifestyle).length > 0) {
+    const ls = state.lifestyle;
+    const hasData = Object.values(ls).some(v => v && v !== 'not_discussed' && v !== '');
+    
+    if (hasData) {
+      html += '<div class="profile-section-divider"></div>';
+      html += '<h3 class="profile-section-title">Your Lifestyle</h3>';
+      html += '<div class="lifestyle-grid">';
+      
+      if (ls.musicLover && ls.musicLover !== 'not_discussed') html += lifestyleCard('Music', formatLifestyleValue(ls.musicLover));
+      if (ls.filmLover && ls.filmLover !== 'not_discussed') html += lifestyleCard('Film & Cinema', formatLifestyleValue(ls.filmLover));
+      if (ls.entertainsOften && ls.entertainsOften !== 'not_discussed') html += lifestyleCard('Entertaining', formatLifestyleValue(ls.entertainsOften));
+      if (ls.worksFromHome && ls.worksFromHome !== 'not_discussed') html += lifestyleCard('Work from Home', formatLifestyleValue(ls.worksFromHome));
+      if (ls.outdoorLiving && ls.outdoorLiving !== 'not_discussed') html += lifestyleCard('Outdoor Living', formatLifestyleValue(ls.outdoorLiving));
+      if (ls.sleepPriority && ls.sleepPriority !== 'not_discussed') html += lifestyleCard('Sleep & Wellness', formatLifestyleValue(ls.sleepPriority));
+      
+      html += '</div>';
+      
+      // Dream feature callout
+      if (ls.dreamFeature && ls.dreamFeature.trim()) {
+        html += '<div class="dream-feature-callout">';
+        html += '<div class="dream-feature-label">Dream Feature</div>';
+        html += '<div class="dream-feature-text">"' + ls.dreamFeature + '"</div>';
+        html += '</div>';
+      }
+    }
+  }
+  
+  container.innerHTML = html;
+}
+
+function lifestyleCard(label, value) {
+  return '<div class="lifestyle-card"><span class="lifestyle-label">' + label + '</span><span class="lifestyle-value">' + value + '</span></div>';
+}
+
+function formatLifestyleValue(val) {
+  if (val === 'yes') return 'Yes';
+  if (val === 'no') return 'No';
+  if (val === 'high') return 'High Priority';
+  if (val === 'medium') return 'Medium';
+  if (val === 'low') return 'Low';
+  if (val === 'very_important') return 'Very Important';
+  if (val === 'important') return 'Important';
+  if (val === 'not_important') return 'Not a Priority';
+  if (val === 'often') return 'Frequently';
+  if (val === 'sometimes') return 'Sometimes';
+  if (val === 'rarely') return 'Rarely';
+  // Capitalize first letter and replace underscores
+  return val.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// ============================================
+// PRINT / PDF EXPORT
+// ============================================
+
+function printProfile() {
+  const printDiv = document.getElementById('printContent');
+  
+  const sel = state.selections;
+  const tierNames = ['Curated Light', 'Living Light', 'Full Spectrum'];
+  const zoneNames = ['Essential (2–3 zones)', 'Considered (4–6 zones)', 'Complete (7+ zones)'];
+  const perimeterNames = ['Entry points', 'Property line', 'Complete awareness'];
+  const continuityNames = ['Battery backup', 'Battery + generator', 'Full energy intelligence'];
+  const musicOptions = ["Throughout the home", "Main living areas", "Outdoor spaces", "Bedrooms", "Kitchen & dining"];
+  
+  let html = '';
+  html += '<img class="print-logo" src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible">';
+  html += '<div class="print-title">Your Experience Profile</div>';
+  html += '<div class="print-subtitle">A portrait of the home you\'re imagining</div>';
+  html += '<div class="print-divider"></div>';
+  
+  // Origin excerpt
+  html += '<div class="print-origin">"' + CONTENT.origin.short + '"</div>';
+  
+  // Six categories
+  html += '<div class="print-section-title">Experience Selections</div>';
+  html += '<div class="print-grid">';
+  
+  // Illumination
+  const illValue = sel.illumination.tier !== null ? tierNames[sel.illumination.tier] : 'Not yet selected';
+  html += printCard('Illumination', illValue);
+  
+  // Immersion
+  let immValue = 'Cinema: ' + (sel.immersion.cinema === true ? 'Yes' : sel.immersion.cinema === false ? 'No' : '—');
+  immValue += ' · Listening Room: ' + (sel.immersion.listeningRoom === true ? 'Yes' : sel.immersion.listeningRoom === false ? 'No' : '—');
+  if (sel.immersion.musicAreas.length > 0) {
+    immValue += ' · Music: ' + sel.immersion.musicAreas.map(i => musicOptions[i]).join(', ');
+  }
+  html += printCard('Immersion', immValue);
+  
+  // Equilibrium
+  const eqValue = sel.equilibrium.zones !== null ? zoneNames[sel.equilibrium.zones] : 'Not yet selected';
+  html += printCard('Equilibrium', eqValue);
+  
+  // Autonomy
+  html += printCard('Autonomy', 'Included — Savant OS');
+  
+  // Perimeter
+  let periValue = 'Not selected';
+  if (sel.perimeter.wanted === true && sel.perimeter.depth !== null) periValue = perimeterNames[sel.perimeter.depth];
+  html += printCard('Perimeter', periValue);
+  
+  // Continuity
+  let contValue = 'Not selected';
+  if (sel.continuity.wanted === true && sel.continuity.level !== null) contValue = continuityNames[sel.continuity.level];
+  html += printCard('Continuity', contValue);
+  
+  html += '</div>';
+  
+  // Lifestyle data
+  if (state.lifestyle) {
+    const ls = state.lifestyle;
+    const hasData = Object.values(ls).some(v => v && v !== 'not_discussed' && v !== '');
+    if (hasData) {
+      html += '<div class="print-divider"></div>';
+      html += '<div class="print-section-title">Lifestyle</div>';
+      
+      if (ls.musicLover && ls.musicLover !== 'not_discussed') html += printLifestyleItem('Music', formatLifestyleValue(ls.musicLover));
+      if (ls.filmLover && ls.filmLover !== 'not_discussed') html += printLifestyleItem('Film & Cinema', formatLifestyleValue(ls.filmLover));
+      if (ls.entertainsOften && ls.entertainsOften !== 'not_discussed') html += printLifestyleItem('Entertaining', formatLifestyleValue(ls.entertainsOften));
+      if (ls.worksFromHome && ls.worksFromHome !== 'not_discussed') html += printLifestyleItem('Work from Home', formatLifestyleValue(ls.worksFromHome));
+      if (ls.outdoorLiving && ls.outdoorLiving !== 'not_discussed') html += printLifestyleItem('Outdoor Living', formatLifestyleValue(ls.outdoorLiving));
+      if (ls.sleepPriority && ls.sleepPriority !== 'not_discussed') html += printLifestyleItem('Sleep & Wellness', formatLifestyleValue(ls.sleepPriority));
+      
+      if (ls.dreamFeature && ls.dreamFeature.trim()) {
+        html += '<div class="print-dream-quote">"' + ls.dreamFeature + '"</div>';
+      }
+    }
+  }
+  
+  // Rooms
+  const rooms = state.rooms.length > 0 ? state.rooms : state.phase2.rooms;
+  if (rooms.length > 0) {
+    html += '<div class="print-divider"></div>';
+    html += '<div class="print-section-title">Rooms</div>';
+    html += '<div class="print-rooms-list">';
+    rooms.forEach(r => {
+      html += '<span class="print-room-tag">' + r.name + ' · ' + r.floor + '</span>';
+    });
+    html += '</div>';
+  }
+  
+  // Intake data
+  if (state.intake && Object.keys(state.intake).length > 0) {
+    html += '<div class="print-divider"></div>';
+    html += '<div class="print-section-title">Project Details</div>';
+    const intake = state.intake;
+    if (intake.projectType) html += printLifestyleItem('Project Type', intake.projectType === 'new_build' ? 'New Build' : intake.projectType === 'renovation' ? 'Renovation' : intake.projectType);
+    if (intake.stage) html += printLifestyleItem('Stage', intake.stage);
+    if (intake.location) html += printLifestyleItem('Location', intake.location);
+    if (intake.architectBuilder) html += printLifestyleItem('Architect / Builder', intake.architectBuilder);
+    if (intake.timeline) html += printLifestyleItem('Timeline', intake.timeline);
+  }
+  
+  html += '<div class="print-footer">Art of Possible | artofpossible.com | Confidential</div>';
+  
+  printDiv.innerHTML = html;
+  window.print();
+}
+
+function printCard(name, value) {
+  return '<div class="print-card"><div class="print-card-name">' + name + '</div><div class="print-card-value">' + value + '</div></div>';
+}
+
+function printLifestyleItem(label, value) {
+  return '<div class="print-lifestyle-item"><span class="print-lifestyle-label">' + label + '</span><span class="print-lifestyle-value">' + value + '</span></div>';
+}
+
+// ============================================
+// ENHANCED PHASE 2 — Select All Rooms
+// ============================================
+
+function addSystemToAllRooms(sysKey) {
+  state.phase2.rooms.forEach(room => {
+    if (!state.phase2.roomSystems[room.name]) {
+      state.phase2.roomSystems[room.name] = getDefaultSystems(room);
+    }
+    if (!state.phase2.roomSystems[room.name].includes(sysKey)) {
+      state.phase2.roomSystems[room.name].push(sysKey);
+    }
+  });
+  saveState();
+  renderRoomPanel();
+  renderSystemPanel();
+  renderPhase2Summary();
+}
+
+function removeSystemFromAllRooms(sysKey) {
+  state.phase2.rooms.forEach(room => {
+    if (state.phase2.roomSystems[room.name]) {
+      const idx = state.phase2.roomSystems[room.name].indexOf(sysKey);
+      if (idx > -1) state.phase2.roomSystems[room.name].splice(idx, 1);
+    }
+  });
+  saveState();
+  renderRoomPanel();
+  renderSystemPanel();
+  renderPhase2Summary();
+}
+
 // ============================================
 // VOICE CONCIERGE WIDGET
 // ============================================
 
-const VOICE_SCREENS = ['welcome', 'deepdive']; // screens where the FAB shows
+const VOICE_SCREENS = ['welcome', 'deepdive', 'rooms']; // screens where the FAB shows
 
 function updateVoiceFabVisibility() {
   const fab = document.getElementById('voiceFab');
@@ -3604,5 +4964,8 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
   </div>
 </div>
 
+
+<!-- Hidden print content for PDF export -->
+<div id="printContent" style="display:none;"></div>
 </body>
 </html>
