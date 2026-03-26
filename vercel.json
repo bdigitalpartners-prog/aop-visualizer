@@ -1,5 +1,35 @@
 {
+  "buildCommand": null,
+  "outputDirectory": null,
+  "framework": null,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/retell-webhook",
+      "destination": "/api/retell-webhook"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "RETELL_API_KEY": "@retell-api-key",
+    "HUBSPOT_API_KEY": "@hubspot-api-key"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, x-retell-signature" }
+      ]
+    }
   ]
 }

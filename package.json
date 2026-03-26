@@ -1,0 +1,23 @@
+{
+  "name": "aop-visualizer",
+  "version": "3.0.0",
+  "description": "Art of Possible Technology Planner with Retell AI + HubSpot integration",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "aop",
+    "technology-planner",
+    "retell-ai",
+    "hubspot",
+    "smart-home"
+  ],
+  "author": "b/digital Partners",
+  "license": "UNLICENSED"
+}
