@@ -2980,6 +2980,380 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+
+/* ============================================
+   SHOWCASE SECTION — "What's Possible"
+   ============================================ */
+
+.showcase-section {
+  margin: 48px 0;
+  padding: 48px 0;
+  position: relative;
+}
+
+.showcase-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.25;
+}
+
+.showcase-header {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 32px;
+  letter-spacing: 0.02em;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.showcase-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  transition: all 500ms var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 500ms var(--ease);
+}
+
+.showcase-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 20px rgba(214,160,65,0.06);
+  border-color: var(--card-border-hover);
+}
+
+.showcase-card:hover::before {
+  opacity: 1;
+}
+
+.showcase-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.showcase-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.showcase-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.showcase-desc {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Showcase animation */
+.showcase-card {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: showcaseCardIn 600ms var(--ease-out) forwards;
+}
+
+@keyframes showcaseCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.showcase-card:nth-child(1) { animation-delay: 800ms; }
+.showcase-card:nth-child(2) { animation-delay: 920ms; }
+.showcase-card:nth-child(3) { animation-delay: 1040ms; }
+
+@media (max-width: 1024px) {
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .showcase-section {
+    margin: 32px 0;
+    padding: 32px 0;
+  }
+  .showcase-card {
+    padding: 24px 20px;
+  }
+}
+
+/* ============================================
+   VOICE MODAL ENHANCEMENTS
+   ============================================ */
+
+/* Waveform animation for agent speaking */
+.voice-waveform {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.voice-waveform.active {
+  display: flex;
+}
+
+.voice-waveform-bar {
+  width: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  animation: waveformBounce 1.2s ease-in-out infinite;
+}
+
+.voice-waveform-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+.voice-waveform-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+.voice-waveform-bar:nth-child(3) { height: 24px; animation-delay: 0.2s; }
+.voice-waveform-bar:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+.voice-waveform-bar:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+.voice-waveform-bar:nth-child(6) { height: 20px; animation-delay: 0.15s; }
+.voice-waveform-bar:nth-child(7) { height: 16px; animation-delay: 0.25s; }
+
+@keyframes waveformBounce {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Call duration timer */
+.voice-timer {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+  display: none;
+}
+
+.voice-timer.active {
+  display: block;
+}
+
+/* Voice modal divider */
+.voice-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(214,160,65,0.2), transparent);
+  margin: 16px 0;
+}
+
+/* Agent avatar monogram */
+.voice-agent-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid rgba(214,160,65,0.3);
+  font-family: var(--serif);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Voice status label enhancements */
+.voice-status-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 4px;
+  display: none;
+}
+
+.voice-status-label.active {
+  display: block;
+}
+
+/* ============================================
+   GENERAL UX POLISH
+   ============================================ */
+
+/* Gold gradient divider between sections in deep-dive */
+.section-gold-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.2;
+  margin: 0;
+}
+
+/* Tier card selection: gold border + checkmark animation */
+.tier-card.selected {
+  border-color: var(--gold);
+  background: var(--card-hover);
+  box-shadow: 0 0 40px rgba(214,160,65,0.1);
+}
+
+.tier-card.selected .selected-badge {
+  animation: checkBounce 400ms var(--ease-out);
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Next category button: more prominent */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 16px 36px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 500ms var(--ease);
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 30px rgba(214,160,65,0.2);
+}
+
+/* Profile cards: more padding/breathing room */
+.profile-card {
+  padding: 36px 32px;
+}
+
+/* Room chip micro-interaction */
+@keyframes chipBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.06); }
+  60% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.room-chip.just-selected {
+  animation: chipBounce 350ms var(--ease) forwards;
+}
+
+/* Welcome screen watermark */
+.welcome-watermark {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Progress dot pulse for newly explored */
+@keyframes dotPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(214,160,65,0.5); }
+  50% { transform: scale(1.3); box-shadow: 0 0 8px 2px rgba(214,160,65,0.3); }
+  100% { transform: scale(1.15); box-shadow: 0 0 8px rgba(214,160,65,0.4); }
+}
+
+.progress-dot.just-explored {
+  animation: dotPulse 800ms var(--ease) forwards;
+}
+
+/* Smooth transcript scrolling */
+.voice-transcript {
+  scroll-behavior: smooth;
+}
+
+/* Screen transition refinement — ensure slide up effect */
+.screen {
+  transform: translateY(16px);
+  transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+}
+
+.screen.visible {
+  transform: translateY(0);
+}
+
+
+/* Deep-dive bottom navigation */
+.deepdive-bottom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+@media (max-width: 768px) {
+  .deepdive-bottom-nav {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .deepdive-bottom-nav .btn-primary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .deepdive-bottom-nav .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
+}
 </style>
 
 </head>
@@ -2997,6 +3371,7 @@ h1, h2, h3, h4, h5 {
     <p class="welcome-origin">Most people don't know what their home could become — until someone shows them. Art of Possible begins where the blueprints end and the imagination starts: not with products or specs, but with a single question.</p>
     <button class="btn-gold" onclick="navigateTo('tiles')"><span>Begin Imagining</span></button>
   </div>
+  <div class="welcome-watermark">powered by Art of Possible</div>
   <footer class="site-footer">
     <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
   </footer>
@@ -3015,7 +3390,7 @@ h1, h2, h3, h4, h5 {
     </div>
 
     <!-- Featured: Illumination -->
-    <div class="featured-tile" onclick="navigateToCategory('illumination')" id="tile-illumination" style="background-image: linear-gradient(to bottom, rgba(14,16,21,0.4), rgba(14,16,21,0.85)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80'); background-size: cover; background-position: center;">
+    <div class="featured-tile" onclick="navigateToCategory('illumination')" id="tile-illumination" style="background-image: linear-gradient(to bottom, rgba(14,16,21,0.4), rgba(14,16,21,0.85)), url('https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80'); background-size: cover; background-position: center;">
       <div class="tile-check" id="check-illumination">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
@@ -3162,7 +3537,7 @@ const CONTENT = {
       id: "illumination",
       name: "Illumination",
       tagline: "Light that breathes with your day.",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80",
       shortDescription: "Your body responds before you know why. Light that shifts with the sun, follows your circadian rhythm, and sculpts every room for the moment you're in.",
       fullNarrative: "You wake before the alarm. The bedroom is already warming — not from a switch, but from light itself, a slow amber tide that rises along the ceiling like the first minutes of sunrise. It isn't bright. It's present. By the time you reach the kitchen, the light has shifted: clean, vital, the kind of clarity that makes the morning feel deliberate. You don't adjust anything. You don't think about it. The house has already read the hour, the season, the angle of the sun, and it responds with a recipe of light engineered for this exact moment. In the evening, the spectrum pulls warm again — the dining room glows at a frequency that makes skin look beautiful and food look extraordinary. The boundaries between inside and outside dissolve as shading systems track the natural light show beyond the glass. This is not illumination that serves a room. It is living light — sculpted, orchestrated, full-spectrum — and it serves you.",
       whatLivesHere: ["Ketra full-spectrum lighting", "Circadian rhythm programming", "Lutron shading systems", "Landscape lighting", "Architectural fixtures", "Vibrancy color rendering", "Natural Light Show"],
@@ -3170,17 +3545,17 @@ const CONTENT = {
       tiers: [
         {
           name: "Curated Light",
-          description: "Lutron dimming and motorized shading with programmed scenes. Beautiful keypads, quiet precision, and a home that responds to your touch.",
+          description: "Lutron dimming and motorized shading with programmed scenes. Beautiful keypads, quiet precision, and a home that responds to your touch. Most homeowners start here. Beautiful Lutron dimming throughout the home, motorized Palladiom shading that whispers when it moves, and programmed scenes that transform your rooms with one touch. The keypads themselves are works of industrial design — laser-etched, backlit, precision-machined metal.",
           highlights: ["Lutron dimming throughout", "Motorized shading", "Programmed scenes", "Palladiom keypads"]
         },
         {
           name: "Living Light",
-          description: "Everything in Curated Light, plus Ketra tunable spectrum in your most important rooms. The light shifts with your day — circadian rhythm in the bedroom, Vibrancy where your art and architecture deserve it most.",
+          description: "Everything in Curated Light, plus Ketra tunable spectrum in your most important rooms. This is where most of our clients land. Ketra\u2019s tunable spectrum fills your primary suite, great room, kitchen, and dining room. Your bedroom wakes you with circadian light that mimics sunrise. Your dining room glows with Vibrancy that makes skin tones and food look extraordinary. The rooms that matter most feel alive.",
           highlights: ["Ketra in key rooms", "Circadian rhythm programming", "Vibrancy color rendering", "Tunable spectrum 1,400K–10,000K"]
         },
         {
           name: "Full Spectrum",
-          description: "Ketra throughout the entire home, every fixture, every room. Landscape lighting integrated. The boundaries between indoors and out dissolve completely. The home breathes light.",
+          description: "The complete experience. Ketra in every fixture, every room, integrated with landscape lighting outdoors. The Natural Light Show runs all day — the home breathes with the sun. Walk from room to room and the light shifts with you. This is what \u2018Illumination\u2019 means at Art of Possible. It represents roughly half the technology investment, and clients who choose it never look back.",
           highlights: ["Ketra whole-home", "Natural Light Show", "Landscape integration", "Full circadian programming", "Complete shading choreography"]
         }
       ]
@@ -3189,7 +3564,7 @@ const CONTENT = {
       id: "immersion",
       name: "Immersion",
       tagline: "You're not watching. You're inside it.",
-      image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80",
       shortDescription: "Sound and image that collapse the distance between you and the thing you love. From a dedicated cinema to music that follows you room to room.",
       fullNarrative: "The lights dim and the room disappears. What replaces it is presence — pure, visceral, total. The opening score doesn't come from a speaker. It arrives from everywhere and nowhere, a spatial architecture of sound that places you at the center of something larger than the room. The image is absolute: deep blacks that hold their weight, colors so faithful they feel three-dimensional. You forget you're home. That's the point. In the morning, the same space fills with music — not background noise, but concert-grade fidelity that turns a cup of coffee into a ritual. Walk from the kitchen to the terrace and the sound follows you, seamless, unbroken, as though the architecture itself is singing. Reference-quality listening rooms let you hear a recording the way the artist intended, every breath and bow stroke alive in the room with you. This is immersion — not volume, not spectacle, but the quiet collapse of the distance between you and the thing you love.",
       whatLivesHere: ["Dedicated home cinema", "Distributed whole-home audio", "Reference listening rooms", "Architectural speakers", "Surround sound", "Media rooms", "Music streaming", "Acoustic design"],
@@ -3204,7 +3579,7 @@ const CONTENT = {
       id: "equilibrium",
       name: "Equilibrium",
       tagline: "Your body simply feels right.",
-      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80",
       shortDescription: "Temperature, air, water — calibrated so precisely you never think about any of them. You just feel better than you did in your last home.",
       fullNarrative: "You notice nothing. That is exactly the point. The air in your bedroom is cooler by two degrees than the hallway — not because you programmed it, but because that's how you sleep best, and the house learned. The humidity holds steady at a level where your skin feels comfortable and the woodwork stays true. Every breath you take has been filtered, purified, considered. The water from the tap is clean in a way you can taste — absence, really, the absence of everything that shouldn't be there. In summer, the house anticipates the afternoon heat and adjusts before you feel it. In winter, it cocoons. Equilibrium is the invisible architecture of wellness — thermal, atmospheric, hydrological — working in concert so your body can do what it was designed to do: rest, restore, inhabit a space without friction. You won't think about any of this. You'll just feel better than you did in your last home, and you won't quite know why.",
       whatLivesHere: ["Centralized climate control", "Air quality monitoring", "Filtered water systems", "Humidity management", "Zoned thermal regulation"],
@@ -3217,7 +3592,7 @@ const CONTENT = {
       id: "autonomy",
       name: "Autonomy",
       tagline: "A home that thinks before you ask.",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80",
       shortDescription: "The residential operating system at the center of your home connects every system into a single, unified intelligence. It speaks human. It reads context. It already knows.",
       fullNarrative: "You don't operate this house. You live in it. The difference is everything. When you say goodnight, the home understands what that means — not as a command to execute, but as an intent to interpret. The doors lock. The lights trace a path to the bedroom and then fade. The temperature adjusts. The perimeter arms. It happens in seconds, and it happens because the house knows you. Not your schedule — you. The residential operating system at the center of your home is not a panel on the wall. It is the nerve center, the backbone, the quiet intelligence that connects every system into a single, unified whole. It speaks human. It reads context. When you arrive home with groceries, it recognizes your car, opens the garage, lights the kitchen, and sets the temperature for cooking — no touch, no voice, no thought required. This is ambient intelligence: proactive, anticipatory, frictionless. The home doesn't wait to be told. It already knows.",
       whatLivesHere: ["Savant control platform", "Whole-home networking", "WiFi infrastructure", "Scene programming", "Voice control", "AI-driven contextual automation", "Touch panels"],
@@ -3230,7 +3605,7 @@ const CONTENT = {
       id: "perimeter",
       name: "Perimeter",
       tagline: "Intelligent, not intrusive.",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
       shortDescription: "A boundary, defined and defended. Nothing crosses it without your home knowing. You don't check it. You don't worry about it. It is simply there.",
       fullNarrative: "There is a line around your home. Nothing crosses it without the house knowing. Not a delivery driver approaching the gate. Not a shadow moving where shadows don't belong. Not a door left ajar after midnight. The vigilance is constant, layered, and utterly discreet — you feel its presence as confidence, not as cameras. Your children leave for school and the house confirms it. A guest arrives and is recognized before they ring. An anomaly at three in the morning is flagged, assessed, and escalated in the time it takes you to turn over in your sleep. This is not surveillance. This is sovereignty — your boundary, your terms, your quiet assurance that the people and things you care about are covered. The perimeter is watchful the way a sentinel is watchful: steady, patient, seeing everything, saying nothing unless there is something to say. You don't check it. You don't worry about it. It is simply there — steadfast, certain, always.",
       whatLivesHere: ["Security cameras", "Access control", "Gate systems", "AI-driven anomaly detection", "Motion detection", "Monitoring services", "Intercoms"],
@@ -3244,7 +3619,7 @@ const CONTENT = {
       id: "continuity",
       name: "Continuity",
       tagline: "A home that never goes dark.",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
       shortDescription: "Power that sees the storm before it arrives. Monitored, managed, fortified — and intelligent enough to save you money while keeping everything running.",
       fullNarrative: "The grid fails. You don't notice. That sentence is the entire promise. Somewhere beyond your property line, a transformer trips and ten thousand homes lose power. Yours doesn't flicker. The transition is seamless — battery systems engage in milliseconds, generators stand ready in reserve, and the house continues as though nothing happened, because for you, nothing did. But continuity is more than backup. It is intelligence applied to energy itself. Your home monitors every circuit, knows exactly where power is flowing and why, and shifts consumption to avoid peak rates before the utility company even sends the signal. When a storm is approaching, the system watches the forecast, charges the batteries, and secures the load — all before the first drop of rain. This is the bedrock your home stands on: power that is monitored, managed, fortified, and never taken for granted. The lights stay on. The systems hold. The life you've built inside these walls continues, uninterrupted.",
       whatLivesHere: ["Savant Power system", "Battery storage", "Generator integration", "Surge protection", "Circuit-level energy monitoring", "Storm Watch", "Energy mode automation", "Peak rate shifting", "EV charging"],
@@ -3257,6 +3632,116 @@ const CONTENT = {
   ]
 };
 
+
+
+// ============================================
+// SHOWCASE CONTENT — "What's Possible"
+// ============================================
+
+const SHOWCASE_CONTENT = {
+  illumination: [
+    {
+      title: "Circadian Dawn",
+      desc: "Your bedroom fills with light that mimics sunrise — warming from deep amber to bright daylight over 30 minutes. Your body wakes naturally, without an alarm.",
+      icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+    },
+    {
+      title: "Gallery Mode",
+      desc: "Ketra Vibrancy tunes white light to make artwork look exactly as the artist intended. Museum-quality illumination in your home.",
+      icon: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
+    },
+    {
+      title: "Choreographed Shading",
+      desc: "Lutron Palladiom shades track the sun throughout the day, automatically balancing natural light with Ketra\u2019s engineered spectrum. The boundaries between inside and outside dissolve.",
+      icon: '<svg viewBox="0 0 24 24"><line x1="3" y1="3" x2="3" y2="21"/><line x1="21" y1="3" x2="21" y2="21"/><line x1="3" y1="3" x2="21" y2="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="3" y1="21" x2="21" y2="21"/></svg>'
+    }
+  ],
+  immersion: [
+    {
+      title: "Hidden Cinema",
+      desc: "A painting hangs above the fireplace. One command, and the art rolls up to reveal a display that descends into position. The room transforms from living space to private screening room.",
+      icon: '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>'
+    },
+    {
+      title: "The 20-Foot Canvas",
+      desc: "A Just Video Walls MicroLED surface spans your great room wall. By day, it\u2019s a rotating digital art gallery. By evening, it\u2019s a reference-grade cinema. 12-bit color, 120fps, no projector, no glare.",
+      icon: '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
+    },
+    {
+      title: "Sound That Follows",
+      desc: "Walk from the kitchen to the terrace. Your music follows you — seamless, unbroken, as though the architecture itself is singing. Architectural speakers disappear into ceilings and walls.",
+      icon: '<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>'
+    }
+  ],
+  equilibrium: [
+    {
+      title: "Sleep Science",
+      desc: "Your bedroom holds 2\u20134 degrees cooler than the rest of the home because that\u2019s how your body sleeps best. The house learned your preference and maintains it automatically.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M14 2s-3 2-3 9 3 9 3 9"/><path d="M10 2s3 2 3 9-3 9-3 9"/><line x1="2" y1="12" x2="22" y2="12"/></svg>'
+    },
+    {
+      title: "Clean Air Architecture",
+      desc: "Every breath is filtered. Humidity holds at the level where your skin is comfortable and your woodwork stays true. In Georgia\u2019s climate, this matters.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1111 8H2"/><path d="M12.59 19.41A2 2 0 1014 16H2"/><path d="M15.73 8.27A2.5 2.5 0 1119 12H2"/></svg>'
+    },
+    {
+      title: "The Wine Vault",
+      desc: "55\u00B0F, 70% humidity, zero vibration. Your collection is preserved in conditions more precise than most commercial cellars.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M8 2h8l4 10H4L8 2z"/><path d="M4 12v6a4 4 0 004 4h8a4 4 0 004-4v-6"/></svg>'
+    }
+  ],
+  autonomy: [
+    {
+      title: "Goodnight",
+      desc: "One word. The doors lock. Lights trace a path to your bedroom and fade. Temperature adjusts for sleep. Perimeter arms. The home understands intent, not commands.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>'
+    },
+    {
+      title: "The Invisible Interface",
+      desc: "No app. No remote. No panel to find. The home reads context — time, occupancy, patterns — and responds. Technology so good you forget it\u2019s there.",
+      icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>'
+    },
+    {
+      title: "JARVIS, Realized",
+      desc: "The future of Autonomy is a home that thinks conversationally. Stand in front of your MicroLED wall and talk. The home responds, adapts, anticipates. We\u2019re building toward that future now.",
+      icon: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>'
+    }
+  ],
+  perimeter: [
+    {
+      title: "Intelligent Recognition",
+      desc: "Your gate knows your car. A guest is recognized before they ring. A delivery driver is logged and tracked. The system distinguishes between a deer and a person.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+    },
+    {
+      title: "Silent Vigil",
+      desc: "An anomaly at 3 AM — movement where there shouldn\u2019t be movement. Flagged, assessed, and escalated in the time it takes you to turn over in your sleep.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+    },
+    {
+      title: "Remote Sovereignty",
+      desc: "You\u2019re in another state. Your phone shows every angle of your property in real-time. Lock a door, check a camera, arm a zone — from anywhere.",
+      icon: '<svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
+    }
+  ],
+  continuity: [
+    {
+      title: "The Invisible Failover",
+      desc: "A transformer fails. Ten thousand homes lose power. Yours doesn\u2019t flicker. Savant Power batteries engage in milliseconds — faster than your lights can dim.",
+      icon: '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+    },
+    {
+      title: "Storm Watch",
+      desc: "The system monitors weather forecasts. When a storm approaches, it automatically charges batteries and secures the load — before the first drop of rain.",
+      icon: '<svg viewBox="0 0 24 24"><path d="M19 16.9A5 5 0 0018 7h-1.26a8 8 0 10-11.62 9"/><polyline points="13 11 9 17 15 17 11 23"/></svg>'
+    },
+    {
+      title: "Peak Intelligence",
+      desc: "Your home shifts to battery during expensive peak hours and charges during off-peak. The system literally pays for itself. You see every circuit, every watt, in real-time.",
+      icon: '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>'
+    }
+  ]
+};
 // ============================================
 // STATE MANAGEMENT
 // ============================================
@@ -3474,6 +3959,25 @@ function renderDeepDive(categoryId) {
     </div>
   `;
 
+  // Showcase section — "What's Possible"
+  const showcaseItems = SHOWCASE_CONTENT[categoryId];
+  if (showcaseItems && showcaseItems.length > 0) {
+    html += '<div class="showcase-section">';
+    html += '<h3 class="showcase-header">What\u2019s Possible</h3>';
+    html += '<div class="showcase-grid">';
+    showcaseItems.forEach(function(item) {
+      html += '<div class="showcase-card">';
+      html += '<div class="showcase-icon">' + item.icon + '</div>';
+      html += '<h4 class="showcase-title">' + item.title + '</h4>';
+      html += '<p class="showcase-desc">' + item.desc + '</p>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Gold gradient divider before decision section
+  html += '<div class="section-gold-divider"></div>';
+
   // Decision section
   html += '<div class="decision-section">';
 
@@ -3585,19 +4089,20 @@ function renderDeepDive(categoryId) {
   const nextCatId = isLast ? null : CATEGORY_ORDER[currentIdx + 1];
   const nextCat = nextCatId ? CONTENT.categories.find(c => c.id === nextCatId) : null;
 
-  html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.06);">';
+  html += '<div class="deepdive-bottom-nav">';
   html += '<button class="btn-ghost" onclick="navigateTo(\'tiles\')" style="font-size: 0.85rem;">← All Experiences</button>';
   if (isLast) {
-    html += '<button class="btn-primary" onclick="navigateTo(\'profile\')" style="font-size: 0.95rem; padding: 14px 36px;">View Your Experience Profile →</button>';
+    html += '<button class="btn-primary" onclick="navigateTo(\'profile\')">View Your Experience Profile →</button>';
   } else {
-    html += `<button class="btn-primary" onclick="navigateToCategory('${nextCatId}')" style="font-size: 0.95rem; padding: 14px 36px;">Next: ${nextCat.name} →</button>`;
+    html += '<button class="btn-primary" onclick="navigateToCategory(\'' + nextCatId + '\')">Next: ' + nextCat.name + ' →</button>';
   }
   html += '</div>';
 
   container.innerHTML = html;
 
   // Mark as explored
-  if (!state.explored.includes(categoryId)) {
+  const wasNewlyExplored = !state.explored.includes(categoryId);
+  if (wasNewlyExplored) {
     state.explored.push(categoryId);
     saveState();
   }
@@ -4289,6 +4794,7 @@ function toggleFloorSection(el) {
 
 function toggleRoomSelection(name, floor) {
   const idx = state.rooms.findIndex(r => r.name === name && r.floor === floor);
+  const wasAdded = idx === -1;
   if (idx > -1) {
     state.rooms.splice(idx, 1);
   } else {
@@ -4296,6 +4802,18 @@ function toggleRoomSelection(name, floor) {
   }
   saveState();
   renderRoomsScreen();
+  // Micro-interaction: bounce on select
+  if (wasAdded) {
+    setTimeout(() => {
+      const chips = document.querySelectorAll('.room-chip.selected');
+      chips.forEach(c => {
+        if (c.textContent.trim().startsWith(name)) {
+          c.classList.add('just-selected');
+          setTimeout(() => c.classList.remove('just-selected'), 400);
+        }
+      });
+    }, 50);
+  }
 }
 
 function removeCustomRoom(name, floor) {
@@ -4614,9 +5132,20 @@ function resetVoiceModal() {
   const micSection = document.getElementById('voiceMicSection');
   const placeholder = document.getElementById('voicePlaceholder');
   const transcript = document.getElementById('voiceTranscript');
+  const waveform = document.getElementById('voiceWaveform');
+  const timer = document.getElementById('voiceTimer');
+  const statusLabel = document.getElementById('voiceStatusLabel');
   micSection.style.display = 'flex';
   placeholder.classList.remove('visible');
   transcript.innerHTML = '';
+  if (waveform) waveform.classList.remove('active');
+  if (timer) { timer.classList.remove('active'); timer.textContent = '00:00'; }
+  if (statusLabel) { statusLabel.classList.remove('active'); statusLabel.textContent = ''; }
+  // Reset mic button state
+  const micBtn = document.querySelector('.voice-mic-btn');
+  if (micBtn) { micBtn.classList.remove('listening', 'agent-speaking'); }
+  const micLabel = document.querySelector('.voice-mic-label');
+  if (micLabel) micLabel.textContent = 'Tap to start talking';
 }
 
 // Retell voice concierge integration
@@ -4943,6 +5472,16 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
     <!-- Mic button + transcript (initial state) -->
     <div id="voiceMicSection" style="display:flex; flex-direction:column; align-items:center; width:100%;">
+      <div class="voice-waveform" id="voiceWaveform">
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+        <div class="voice-waveform-bar"></div>
+      </div>
+      <div class="voice-status-label" id="voiceStatusLabel"></div>
       <button class="voice-mic-btn" data-retell-trigger="true" onclick="handleMicClick()" aria-label="Start voice conversation">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
@@ -4950,6 +5489,8 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         </svg>
       </button>
       <p class="voice-mic-label">Tap to start talking</p>
+      <div class="voice-timer" id="voiceTimer">00:00</div>
+      <div class="voice-divider"></div>
       <div class="voice-transcript" id="voiceTranscript"></div>
     </div>
 
