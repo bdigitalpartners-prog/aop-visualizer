@@ -6,22 +6,12 @@
     {
       "source": "/api/retell-webhook",
       "destination": "/api/retell-webhook"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ],
-  "env": {
-    "RETELL_API_KEY": "@retell-api-key",
-    "HUBSPOT_API_KEY": "@hubspot-api-key"
-  },
   "headers": [
     {
       "source": "/api/(.*)",
@@ -31,5 +21,9 @@
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type, x-retell-signature" }
       ]
     }
-  ]
+  ],
+  "env": {
+    "RETELL_API_KEY": "@retell-api-key",
+    "HUBSPOT_API_KEY": "@hubspot-api-key"
+  }
 }
