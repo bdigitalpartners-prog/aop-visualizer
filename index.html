@@ -1801,7 +1801,7 @@ h1, h2, h3, h4, h5 {
   display: none;
   position: relative;
   width: 100%;
-  height: 240px;
+  height: 320px;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 20px;
@@ -1829,7 +1829,7 @@ h1, h2, h3, h4, h5 {
 
 .voice-visual-label {
   position: absolute;
-  bottom: 40px;
+  top: 20px;
   left: 24px;
   font-family: var(--serif);
   font-size: 1.4rem;
@@ -1841,13 +1841,15 @@ h1, h2, h3, h4, h5 {
 
 .voice-visual-sublabel {
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
   left: 24px;
+  right: 24px;
   font-family: var(--sans);
   font-size: 0.8rem;
   color: var(--text-muted);
   z-index: 2;
   transition: all 0.6s ease;
+  line-height: 1.5;
 }
 
 .voice-controls-panel {
@@ -5423,47 +5425,102 @@ const VOICE_VISUALS = {
   welcome: {
     image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
     label: 'Art of Possible',
-    sublabel: 'Imagine what your home could become'
+    sublabel: 'Imagine what your home could become',
+    bullets: []
   },
   illumination: {
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
     label: 'Illumination',
-    sublabel: 'Light that breathes with your day'
+    sublabel: 'Light that breathes with your day',
+    bullets: [
+      'Ketra full-spectrum — 1,400K to 10,000K',
+      'Circadian rhythm tracks the sun',
+      'Vibrancy makes art and skin tones glow',
+      'Lutron shading — quiet as a whisper',
+      'Three tiers: Curated • Living • Full Spectrum'
+    ]
   },
   immersion: {
     image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80',
     label: 'Immersion',
-    sublabel: 'Sound and cinema that surround you'
+    sublabel: 'Sound and cinema that surround you',
+    bullets: [
+      'Dedicated cinema — reference-grade image',
+      'Distributed audio follows you room to room',
+      'Reference listening rooms — hear every breath',
+      'MicroLED video walls — art by day, cinema by night',
+      'Architectural speakers disappear into walls'
+    ]
   },
   equilibrium: {
     image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
     label: 'Equilibrium',
-    sublabel: 'Your body simply feels right'
+    sublabel: 'Your body simply feels right',
+    bullets: [
+      'Zoned climate — bedroom cooler, living warm',
+      'Air quality monitoring and filtration',
+      'Filtered water throughout',
+      'Humidity management for comfort and woodwork',
+      'The house learns how you sleep best'
+    ]
   },
   autonomy: {
     image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80',
     label: 'Autonomy',
-    sublabel: 'A home that thinks before you ask'
+    sublabel: 'The residential operating system',
+    bullets: [
+      'Savant — one app, one intelligence',
+      'Say goodnight — the home understands',
+      'AI-driven context awareness',
+      'Scenes that transform rooms instantly',
+      'Included in every Art of Possible home'
+    ]
   },
   perimeter: {
     image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
     label: 'Perimeter',
-    sublabel: 'Intelligent, not intrusive'
+    sublabel: 'Intelligent, not intrusive',
+    bullets: [
+      'AI-driven anomaly detection',
+      'Gate and entry recognition',
+      'Cameras that know the difference',
+      'Remote monitoring from anywhere',
+      'Discreet — confidence, not cameras'
+    ]
   },
   continuity: {
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
     label: 'Continuity',
-    sublabel: 'A home that never goes dark'
+    sublabel: 'A home that never goes dark',
+    bullets: [
+      'Savant Power — silent, instant failover',
+      'Storm Watch charges before rain arrives',
+      'Peak rate shifting saves money',
+      'Circuit-level monitoring in real time',
+      'No generator noise — just uninterrupted life'
+    ]
   },
   videowall: {
     image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',
     label: 'MicroLED Video Wall',
-    sublabel: 'Art by day. Cinema by night.'
+    sublabel: 'Just Video Walls — Masterpiece Experiences',
+    bullets: [
+      'Scale to any size — 150", 200", full wall',
+      'Digital art gallery by day',
+      'Reference cinema by night',
+      '12-bit color, 120fps, HDR',
+      '7 sources at once — one tap to full screen'
+    ]
   },
   complete: {
     image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
     label: 'Experience Profile Complete',
-    sublabel: 'Your preferences have been captured'
+    sublabel: 'Your preferences have been captured',
+    bullets: [
+      'Our team will review your profile',
+      'Expect a personal follow-up within 24 hours',
+      'Explore the categories on your own anytime'
+    ]
   }
 };
 
@@ -5494,7 +5551,14 @@ function updateVoiceVisual(topic) {
   setTimeout(() => {
     imgEl.style.backgroundImage = `url('${visual.image}')`;
     labelEl.textContent = visual.label;
-    sublabelEl.textContent = visual.sublabel;
+    // Build sublabel with bullets
+    let sublabelHTML = `<span style="display:block; margin-bottom:6px;">${visual.sublabel}</span>`;
+    if (visual.bullets && visual.bullets.length > 0) {
+      sublabelHTML += visual.bullets.map(b => 
+        `<span style="display:block; font-size:0.75rem; color:var(--text-muted); margin:3px 0; padding-left:12px; position:relative;"><span style="position:absolute; left:0; color:var(--gold);">\u2022</span>${b}</span>`
+      ).join('');
+    }
+    sublabelEl.innerHTML = sublabelHTML;
     // Fade in
     imgEl.style.opacity = '1';
     labelEl.style.opacity = '1';
