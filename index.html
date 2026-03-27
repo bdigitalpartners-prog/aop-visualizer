@@ -1796,6 +1796,82 @@ h1, h2, h3, h4, h5 {
   transform: translateY(0) scale(1);
 }
 
+/* Voice visual slideshow panel */
+.voice-visual-panel {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.voice-visual-panel.active {
+  display: block;
+}
+
+.voice-visual-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1.2s ease, opacity 0.8s ease;
+  opacity: 1;
+}
+
+.voice-visual-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14,16,21,0.95) 0%, rgba(14,16,21,0.3) 50%, rgba(14,16,21,0.1) 100%);
+}
+
+.voice-visual-label {
+  position: absolute;
+  bottom: 40px;
+  left: 24px;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  z-index: 2;
+  transition: all 0.6s ease;
+}
+
+.voice-visual-sublabel {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  z-index: 2;
+  transition: all 0.6s ease;
+}
+
+.voice-controls-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Expanded modal when call is active */
+.voice-modal.call-active {
+  max-width: 680px;
+}
+
+@media (min-width: 768px) {
+  .voice-modal.call-active {
+    max-width: 900px;
+  }
+  
+  .voice-modal.call-active .voice-visual-panel {
+    height: 300px;
+  }
+}
+
 .voice-modal-close {
   position: absolute;
   top: 20px;
@@ -5317,6 +5393,116 @@ function applyVoiceSelections(data) {
 }
 let retellWebClient = null;
 let isCallActive = false;
+let currentVisualTopic = 'welcome';
+
+// Voice visual slideshow — maps conversation topics to images
+const VOICE_VISUALS = {
+  welcome: {
+    image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
+    label: 'Art of Possible',
+    sublabel: 'Imagine what your home could become'
+  },
+  illumination: {
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
+    label: 'Illumination',
+    sublabel: 'Light that breathes with your day'
+  },
+  immersion: {
+    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80',
+    label: 'Immersion',
+    sublabel: 'Sound and cinema that surround you'
+  },
+  equilibrium: {
+    image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
+    label: 'Equilibrium',
+    sublabel: 'Your body simply feels right'
+  },
+  autonomy: {
+    image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80',
+    label: 'Autonomy',
+    sublabel: 'A home that thinks before you ask'
+  },
+  perimeter: {
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    label: 'Perimeter',
+    sublabel: 'Intelligent, not intrusive'
+  },
+  continuity: {
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+    label: 'Continuity',
+    sublabel: 'A home that never goes dark'
+  },
+  videowall: {
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',
+    label: 'MicroLED Video Wall',
+    sublabel: 'Art by day. Cinema by night.'
+  },
+  complete: {
+    image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
+    label: 'Experience Profile Complete',
+    sublabel: 'Your preferences have been captured'
+  }
+};
+
+// Keyword map for detecting conversation topics
+const TOPIC_KEYWORDS = {
+  illumination: ['light', 'lighting', 'ketra', 'lutron', 'shade', 'shading', 'circadian', 'sunrise', 'spectrum', 'vibrancy', 'dimming', 'illumination', 'natural light'],
+  immersion: ['sound', 'audio', 'music', 'cinema', 'theater', 'theatre', 'movie', 'speaker', 'surround', 'dolby', 'atmos', 'listening', 'immersion', 'video wall', 'microled', 'just video walls'],
+  equilibrium: ['temperature', 'climate', 'thermostat', 'air', 'humidity', 'comfort', 'sleep', 'cooler', 'warmer', 'hvac', 'equilibrium', 'water', 'filtered'],
+  autonomy: ['control', 'savant', 'automation', 'scene', 'goodnight', 'voice control', 'app', 'operating system', 'autonomy', 'intelligence', 'ai', 'jarvis'],
+  perimeter: ['security', 'camera', 'gate', 'lock', 'access', 'monitor', 'protection', 'surveillance', 'perimeter', 'safe'],
+  continuity: ['power', 'battery', 'generator', 'outage', 'backup', 'storm', 'energy', 'circuit', 'grid', 'continuity', 'savant power'],
+  videowall: ['video wall', 'microled', 'micro led', 'just video walls', 'led wall', 'digital canvas', 'art wall']
+};
+
+function updateVoiceVisual(topic) {
+  if (topic === currentVisualTopic) return;
+  currentVisualTopic = topic;
+  const visual = VOICE_VISUALS[topic] || VOICE_VISUALS.welcome;
+  const imgEl = document.getElementById('voiceVisualImg');
+  const labelEl = document.getElementById('voiceVisualLabel');
+  const sublabelEl = document.getElementById('voiceVisualSublabel');
+  
+  // Fade out
+  imgEl.style.opacity = '0';
+  labelEl.style.opacity = '0';
+  sublabelEl.style.opacity = '0';
+  
+  setTimeout(() => {
+    imgEl.style.backgroundImage = `url('${visual.image}')`;
+    labelEl.textContent = visual.label;
+    sublabelEl.textContent = visual.sublabel;
+    // Fade in
+    imgEl.style.opacity = '1';
+    labelEl.style.opacity = '1';
+    sublabelEl.style.opacity = '1';
+  }, 400);
+}
+
+function detectAndUpdateVisual(transcriptLines) {
+  if (!transcriptLines || transcriptLines.length === 0) return;
+  
+  // Look at the last 3 transcript entries for topic detection
+  const recentText = transcriptLines.slice(-3).map(t => t.content.toLowerCase()).join(' ');
+  
+  // Check each topic's keywords — last match wins (most recent topic)
+  let detectedTopic = null;
+  let latestMatchPos = -1;
+  
+  for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
+    for (const keyword of keywords) {
+      const pos = recentText.lastIndexOf(keyword);
+      if (pos > latestMatchPos) {
+        latestMatchPos = pos;
+        detectedTopic = topic;
+      }
+    }
+  }
+  
+  if (detectedTopic && detectedTopic !== currentVisualTopic) {
+    updateVoiceVisual(detectedTopic);
+  }
+}
 
 async function handleMicClick() {
   if (isCallActive) {
@@ -5359,12 +5545,21 @@ async function handleMicClick() {
       isCallActive = true;
       micLabel.textContent = 'Tap to end call';
       transcript.innerHTML = '<p style="color: var(--gold); font-style: italic;">Connected — listening...</p>';
+      // Activate visual slideshow
+      document.getElementById('voiceVisualPanel').classList.add('active');
+      document.getElementById('voiceModal').classList.add('call-active');
+      updateVoiceVisual('welcome');
     });
 
     retellWebClient.on('call_ended', () => {
       isCallActive = false;
       micBtn.classList.remove('listening');
       micLabel.textContent = 'Call complete — your preferences have been captured';
+      // Show completion visual
+      updateVoiceVisual('complete');
+      setTimeout(() => {
+        document.getElementById('voiceModal').classList.remove('call-active');
+      }, 3000);
       
       // Fetch post-call analysis to populate selections
       fetchPostCallAnalysis(callId);
@@ -5389,6 +5584,8 @@ async function handleMicClick() {
           `<p style="margin: 4px 0; color: ${t.role === 'agent' ? 'var(--gold)' : 'var(--text)'};"><strong>${t.role === 'agent' ? 'Concierge' : 'You'}:</strong> ${t.content}</p>`
         ).join('');
         transcript.scrollTop = transcript.scrollHeight;
+        // Sync visual slideshow to conversation topic
+        detectAndUpdateVisual(lines);
       }
     });
 
@@ -5464,43 +5661,52 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 <!-- Voice Concierge: Modal Overlay -->
 <div class="voice-overlay" id="voiceOverlay">
   <div class="voice-overlay-backdrop" onclick="closeVoiceModal()"></div>
-  <div class="voice-modal">
+  <div class="voice-modal" id="voiceModal">
     <button class="voice-modal-close" onclick="closeVoiceModal()" aria-label="Close">×</button>
-    <img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:160px; height:auto; opacity:0.85; margin-bottom:16px;">
-    <h3 style="font-size:1.3rem;">Voice Concierge</h3>
-    <p class="voice-modal-sub">Have a conversation about what's possible for your home.</p>
+    
+    <!-- Visual slideshow panel (shows during active call) -->
+    <div class="voice-visual-panel" id="voiceVisualPanel">
+      <div class="voice-visual-img" id="voiceVisualImg" style="background-image: url('https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80');"></div>
+      <div class="voice-visual-label" id="voiceVisualLabel">Art of Possible</div>
+      <div class="voice-visual-sublabel" id="voiceVisualSublabel">Your voice concierge is ready</div>
+    </div>
 
-    <!-- Mic button + transcript (initial state) -->
-    <div id="voiceMicSection" style="display:flex; flex-direction:column; align-items:center; width:100%;">
-      <div class="voice-waveform" id="voiceWaveform">
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
-        <div class="voice-waveform-bar"></div>
+    <!-- Controls + transcript panel -->
+    <div class="voice-controls-panel">
+      <img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:140px; height:auto; opacity:0.85; margin-bottom:12px;">
+      <h3 style="font-size:1.2rem;">Voice Concierge</h3>
+      <p class="voice-modal-sub">Have a conversation about what's possible for your home.</p>
+
+      <div id="voiceMicSection" style="display:flex; flex-direction:column; align-items:center; width:100%;">
+        <div class="voice-waveform" id="voiceWaveform">
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+          <div class="voice-waveform-bar"></div>
+        </div>
+        <div class="voice-status-label" id="voiceStatusLabel"></div>
+        <button class="voice-mic-btn" data-retell-trigger="true" onclick="handleMicClick()" aria-label="Start voice conversation">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </button>
+        <p class="voice-mic-label">Tap to start talking</p>
+        <div class="voice-timer" id="voiceTimer">00:00</div>
+        <div class="voice-divider"></div>
+        <div class="voice-transcript" id="voiceTranscript"></div>
       </div>
-      <div class="voice-status-label" id="voiceStatusLabel"></div>
-      <button class="voice-mic-btn" data-retell-trigger="true" onclick="handleMicClick()" aria-label="Start voice conversation">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+      <div class="voice-placeholder" id="voicePlaceholder">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#D6A041" style="opacity:0.6;">
           <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
           <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
         </svg>
-      </button>
-      <p class="voice-mic-label">Tap to start talking</p>
-      <div class="voice-timer" id="voiceTimer">00:00</div>
-      <div class="voice-divider"></div>
-      <div class="voice-transcript" id="voiceTranscript"></div>
-    </div>
-
-    <!-- Placeholder state (shown after mic click) -->
-    <div class="voice-placeholder" id="voicePlaceholder">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#D6A041" style="opacity:0.6;">
-        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-      </svg>
-      <p>Voice concierge coming soon. In the meantime, schedule a conversation at <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer">artofpossible.com/contact</a></p>
+        <p>Voice concierge coming soon. In the meantime, schedule a conversation at <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer">artofpossible.com/contact</a></p>
+      </div>
     </div>
   </div>
 </div>
