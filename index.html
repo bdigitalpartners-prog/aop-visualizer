@@ -3445,7 +3445,20 @@ h1, h2, h3, h4, h5 {
     <p class="welcome-question">How do you want to feel when you walk through your front door?</p>
     <div class="gold-line"></div>
     <p class="welcome-origin">Most people don't know what their home could become — until someone shows them. Art of Possible begins where the blueprints end and the imagination starts: not with products or specs, but with a single question.</p>
-    <button class="btn-gold" onclick="navigateTo('tiles')"><span>Begin Imagining</span></button>
+    
+    <!-- Primary CTA: Voice Concierge -->
+    <button class="btn-gold" onclick="openVoiceModal()" style="display:flex; align-items:center; justify-content:center; gap:12px; margin: 0 auto;">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" style="flex-shrink:0;">
+        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+      </svg>
+      <span>Talk to Your Concierge</span>
+    </button>
+    
+    <!-- Secondary: Manual exploration -->
+    <div style="margin-top: 24px; text-align: center;">
+      <a href="#" onclick="navigateTo('tiles'); return false;" style="font-family: var(--sans); font-size: 0.85rem; color: var(--text-faint); text-decoration: none; letter-spacing: 0.05em; transition: color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-faint)'">or explore on your own →</a>
+    </div>
   </div>
   <div class="welcome-watermark">powered by Art of Possible</div>
   <footer class="site-footer">
@@ -5184,7 +5197,7 @@ function removeSystemFromAllRooms(sysKey) {
 // VOICE CONCIERGE WIDGET
 // ============================================
 
-const VOICE_SCREENS = ['welcome', 'deepdive', 'rooms']; // screens where the FAB shows
+const VOICE_SCREENS = ['welcome', 'tiles', 'deepdive', 'profile', 'rooms', 'phase2']; // voice is primary — show FAB everywhere
 
 function updateVoiceFabVisibility() {
   const fab = document.getElementById('voiceFab');
