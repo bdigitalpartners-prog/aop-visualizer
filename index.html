@@ -3432,6 +3432,251 @@ h1, h2, h3, h4, h5 {
     text-align: center;
   }
 }
+/* ============================================
+   Contact Form Modal
+   ============================================ */
+
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.contact-overlay.open {
+  display: flex;
+}
+
+.contact-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.contact-modal {
+  position: relative;
+  background: var(--surface, #181b23);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.contact-overlay.open .contact-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.contact-modal-close:hover {
+  color: var(--gold);
+}
+
+.contact-modal h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--gold);
+  margin: 0 0 8px;
+}
+
+.contact-modal .contact-subtitle {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--text-faint);
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.contact-form-group {
+  margin-bottom: 18px;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.contact-form-group label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.contact-form-group input,
+.contact-form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  transition: border-color 0.3s, background 0.3s;
+  box-sizing: border-box;
+}
+
+.contact-form-group input:focus,
+.contact-form-group textarea:focus {
+  outline: none;
+  border-color: rgba(201, 169, 110, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.contact-form-group input::placeholder,
+.contact-form-group textarea::placeholder {
+  color: var(--text-faint);
+  opacity: 0.5;
+}
+
+.contact-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.contact-submit-btn:hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contact-submit-btn:disabled:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.contact-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(14, 16, 21, 0.3);
+  border-top-color: var(--bg);
+  border-radius: 50%;
+  animation: contactSpin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes contactSpin {
+  to { transform: rotate(360deg); }
+}
+
+.contact-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.contact-success-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(201, 169, 110, 0.12);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.contact-success-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--gold);
+}
+
+.contact-success h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--gold);
+  margin: 0 0 12px;
+}
+
+.contact-success p {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--text-faint);
+  line-height: 1.7;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.contact-error {
+  background: rgba(220, 80, 80, 0.08);
+  border: 1px solid rgba(220, 80, 80, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: #dc5050;
+}
+
+@media (max-width: 600px) {
+  .contact-modal {
+    padding: 28px 20px;
+  }
+  .contact-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .contact-modal h2 {
+    font-size: 1.5rem;
+  }
+}
+
 </style>
 
 </head>
@@ -3536,7 +3781,7 @@ h1, h2, h3, h4, h5 {
     <div class="profile-grid" id="profileGrid"></div>
     <div id="profileLifestyle"></div>
     <div class="profile-actions">
-      <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
+      <button class="btn-filled" onclick="openContactModal()">Schedule a Conversation</button>
       <button class="btn-filled" onclick="navigateTo('rooms')" style="background: transparent; color: var(--gold); border-color: var(--gold);">Define Your Rooms →</button>
       <button class="btn-print" onclick="printProfile()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Summary</button>
       <button class="btn-ghost" onclick="navigateTo('tiles')">← Back to Experiences</button>
@@ -3600,7 +3845,7 @@ h1, h2, h3, h4, h5 {
       <div class="phase2-cta-divider"></div>
       <p class="phase2-cta-text">Your experience map is ready.</p>
       <div class="phase2-cta-buttons">
-        <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
+        <button class="btn-filled" onclick="openContactModal()">Schedule a Conversation</button>
         <button class="btn-print" onclick="printProfile()" style="margin-top:4px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Experience Summary</button>
         <button class="btn-ghost" onclick="navigateTo('rooms')">← Revise Your Rooms</button>
       </div>
@@ -5215,6 +5460,116 @@ function updateVoiceFabVisibility() {
   }
 }
 
+// ============================================
+// CONTACT FORM MODAL
+// ============================================
+
+function openContactModal() {
+  const overlay = document.getElementById('contactOverlay');
+  // Reset to form view
+  document.getElementById('contactFormView').style.display = 'block';
+  document.getElementById('contactSuccessView').style.display = 'none';
+  document.getElementById('contactError').style.display = 'none';
+  const btn = document.getElementById('contactSubmitBtn');
+  btn.disabled = false;
+  btn.innerHTML = 'Send Inquiry';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeContactModal() {
+  const overlay = document.getElementById('contactOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitContactForm(event) {
+  event.preventDefault();
+  
+  const btn = document.getElementById('contactSubmitBtn');
+  const errorEl = document.getElementById('contactError');
+  errorEl.style.display = 'none';
+  
+  const firstName = document.getElementById('contactFirstName').value.trim();
+  const lastName = document.getElementById('contactLastName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const phone = document.getElementById('contactPhone').value.trim();
+  const location = document.getElementById('contactLocation').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+  
+  // Validate
+  if (!firstName) {
+    errorEl.textContent = 'Please enter your first name.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    errorEl.textContent = 'Please enter a valid email address.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  
+  // Show loading
+  btn.disabled = true;
+  btn.innerHTML = '<span class="contact-spinner"></span>Sending...';
+  
+  try {
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      location,
+      message,
+      experienceProfile: {
+        explored: state.explored || [],
+        selections: state.selections || {},
+        rooms: state.phase2?.rooms || state.rooms || [],
+        intake: state.intake || {}
+      }
+    };
+    
+    const resp = await fetch('/api/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    const data = await resp.json();
+    
+    if (!resp.ok || data.status === 'error') {
+      throw new Error(data.message || 'Something went wrong. Please try again.');
+    }
+    
+    // Success — show confirmation
+    document.getElementById('contactFormView').style.display = 'none';
+    document.getElementById('contactSuccessView').style.display = 'block';
+    
+    // Clear form
+    document.getElementById('contactForm').reset();
+    
+  } catch (err) {
+    errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+    errorEl.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = 'Send Inquiry';
+  }
+}
+
+// Close contact modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const overlay = document.getElementById('contactOverlay');
+    if (overlay.classList.contains('open')) {
+      closeContactModal();
+    }
+  }
+});
+
+// ============================================
+// VOICE CONCIERGE MODAL
+// ============================================
+
 function openVoiceModal() {
   const overlay = document.getElementById('voiceOverlay');
   overlay.classList.add('open');
@@ -5792,12 +6147,67 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
           <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
           <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
         </svg>
-        <p>Voice concierge coming soon. In the meantime, schedule a conversation at <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer">artofpossible.com/contact</a></p>
+        <p>Voice concierge coming soon. In the meantime, <a href="#" onclick="closeVoiceModal(); setTimeout(openContactModal, 300); return false;" style="color: var(--gold);">schedule a conversation</a>.</p>
       </div>
     </div>
   </div>
 </div>
 
+
+<!-- Contact Form Modal -->
+<div class="contact-overlay" id="contactOverlay">
+  <div class="contact-overlay-backdrop" onclick="closeContactModal()"></div>
+  <div class="contact-modal">
+    <button class="contact-modal-close" onclick="closeContactModal()">&times;</button>
+    
+    <!-- Form View -->
+    <div id="contactFormView">
+      <h2>Schedule a Conversation</h2>
+      <p class="contact-subtitle">Tell us about your project and Calvin will be in touch within 24 hours.</p>
+      <form id="contactForm" onsubmit="submitContactForm(event)">
+        <div class="contact-form-row">
+          <div class="contact-form-group">
+            <label for="contactFirstName">First Name *</label>
+            <input type="text" id="contactFirstName" placeholder="First name" required>
+          </div>
+          <div class="contact-form-group">
+            <label for="contactLastName">Last Name</label>
+            <input type="text" id="contactLastName" placeholder="Last name">
+          </div>
+        </div>
+        <div class="contact-form-group">
+          <label for="contactEmail">Email *</label>
+          <input type="email" id="contactEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="contact-form-group">
+          <label for="contactPhone">Phone</label>
+          <input type="tel" id="contactPhone" placeholder="(555) 123-4567">
+        </div>
+        <div class="contact-form-group">
+          <label for="contactLocation">Location / City</label>
+          <input type="text" id="contactLocation" placeholder="City, State">
+        </div>
+        <div class="contact-form-group">
+          <label for="contactMessage">Tell us about your project</label>
+          <textarea id="contactMessage" placeholder="New build, renovation, timeline, what excites you..."></textarea>
+        </div>
+        <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
+          Send Inquiry
+        </button>
+        <div id="contactError" class="contact-error" style="display:none;"></div>
+      </form>
+    </div>
+
+    <!-- Success View -->
+    <div id="contactSuccessView" class="contact-success" style="display:none;">
+      <div class="contact-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3>Thank you.</h3>
+      <p>We received your inquiry and are looking forward to learning about your project. Calvin will be in touch within 24 hours to schedule a conversation.</p>
+    </div>
+  </div>
+</div>
 
 <!-- Hidden print content for PDF export -->
 <div id="printContent" style="display:none;"></div>
