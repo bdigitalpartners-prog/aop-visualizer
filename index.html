@@ -3432,6 +3432,325 @@ h1, h2, h3, h4, h5 {
     text-align: center;
   }
 }
+
+/* ============================================
+   SCREEN: Phase 3 — Investment Window
+   ============================================ */
+
+.phase3-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.phase3-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.phase3-header p {
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.phase3-disclaimer {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto 48px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius-lg);
+  font-style: italic;
+}
+
+/* Investment breakdown table */
+.investment-breakdown {
+  max-width: 860px;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.investment-row {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+  opacity: 0;
+  animation: profileCardIn 500ms var(--ease-out) forwards;
+}
+
+.investment-row:nth-child(1) { animation-delay: 80ms; }
+.investment-row:nth-child(2) { animation-delay: 160ms; }
+.investment-row:nth-child(3) { animation-delay: 240ms; }
+.investment-row:nth-child(4) { animation-delay: 320ms; }
+.investment-row:nth-child(5) { animation-delay: 400ms; }
+.investment-row:nth-child(6) { animation-delay: 480ms; }
+
+.investment-row-left {
+  min-width: 0;
+}
+
+.investment-category {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.investment-tier {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.investment-rooms {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+}
+
+.investment-range {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.investment-range .range-note {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* Total hero section */
+.investment-total-section {
+  max-width: 860px;
+  margin: 0 auto 56px;
+  text-align: center;
+  padding: 56px 40px;
+  background: var(--card);
+  border: 1px solid rgba(214,160,65,0.25);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.investment-total-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+
+.investment-total-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 16px;
+}
+
+.investment-total-amount {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+}
+
+.investment-total-note {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* Autonomy always-included note */
+.investment-always-included {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--gold);
+  background: var(--gold-glow);
+  border: 1px solid rgba(214,160,65,0.15);
+  border-radius: var(--radius);
+  padding: 4px 12px;
+  display: inline-block;
+  margin-top: 8px;
+  letter-spacing: 0.03em;
+}
+
+/* Phase 3 action buttons */
+.phase3-actions {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.phase3-actions .btn-filled {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 16px 40px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 500ms var(--ease);
+  text-decoration: none;
+}
+
+.phase3-actions .btn-filled:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 30px rgba(214,160,65,0.2);
+}
+
+.phase3-actions .btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+}
+
+.phase3-actions .btn-print:hover {
+  color: var(--gold);
+  border-color: rgba(214,160,65,0.3);
+}
+
+.phase3-actions .btn-print svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.phase3-actions .btn-ghost {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: color 400ms var(--ease);
+}
+
+.phase3-actions .btn-ghost:hover {
+  color: var(--gold);
+}
+
+/* No selections state */
+.investment-empty {
+  text-align: center;
+  padding: 60px 40px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.investment-empty h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.investment-empty p {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .investment-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .investment-range {
+    text-align: left;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .investment-total-amount {
+    font-size: 2.2rem;
+  }
+  .investment-total-section {
+    padding: 40px 24px;
+  }
+  .investment-breakdown {
+    gap: 10px;
+  }
+  .investment-row {
+    padding: 20px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .phase3-actions .btn-filled,
+  .phase3-actions .btn-print,
+  .phase3-actions .btn-ghost {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
 </style>
 
 </head>
@@ -3600,10 +3919,40 @@ h1, h2, h3, h4, h5 {
       <div class="phase2-cta-divider"></div>
       <p class="phase2-cta-text">Your experience map is ready.</p>
       <div class="phase2-cta-buttons">
-        <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
+        <button class="btn-filled" onclick="navigateTo('phase3')" style="background: var(--gold); color: var(--bg); border-color: var(--gold);">View Investment Window →</button>
         <button class="btn-print" onclick="printProfile()" style="margin-top:4px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Experience Summary</button>
         <button class="btn-ghost" onclick="navigateTo('rooms')">← Revise Your Rooms</button>
       </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </footer>
+</div>
+
+<!-- ==========================================
+     SCREEN 6: Phase 3 — Investment Window
+     ========================================== -->
+<div id="phase3" class="screen">
+  <div class="screen-inner">
+    <div style="text-align:center; margin-bottom:24px;"><a href="#" onclick="navigateTo('welcome'); return false;" style="display:inline-block;"><img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:180px; height:auto; opacity:0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.95" onmouseout="this.style.opacity=0.7"></a><br><a href="#" onclick="startOver(); return false;" style="font-family:var(--sans); font-size:0.7rem; color:var(--text-faint); text-decoration:none; letter-spacing:0.08em; transition: color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-faint)'">START OVER</a></div>
+    <div class="deepdive-nav">
+      <button class="back-link" onclick="navigateTo('phase2')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Design
+      </button>
+    </div>
+    <div class="phase3-header">
+      <h2>Your Investment Window</h2>
+      <p>A rough-order guide to what your selections may involve</p>
+    </div>
+    <p class="phase3-disclaimer">These ranges are planning estimates, not quotes. Every home is different. Your actual investment will be refined during the design process with your Art of Possible team.</p>
+    <div class="investment-breakdown" id="investmentBreakdown"></div>
+    <div class="investment-total-section" id="investmentTotal"></div>
+    <div class="phase3-actions">
+      <a href="https://artofpossible.com/contact" target="_blank" rel="noopener noreferrer" class="btn-filled">Schedule a Conversation</a>
+      <button class="btn-print" onclick="printProfile()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Investment Summary</button>
+      <button class="btn-ghost" onclick="navigateTo('phase2')">← Revise Your Selections</button>
     </div>
   </div>
   <footer class="site-footer">
@@ -3834,6 +4183,236 @@ const SHOWCASE_CONTENT = {
   ]
 };
 // ============================================
+// INVESTMENT PRICING MODEL
+// ============================================
+
+const INVESTMENT_PRICING = {
+  illumination: {
+    label: 'Illumination',
+    perRoom: true,
+    tiers: [
+      { name: 'Curated Light',  low: 2500,  high: 4500 },
+      { name: 'Living Light',   low: 5000,  high: 8500 },
+      { name: 'Full Spectrum',  low: 8000,  high: 15000 }
+    ]
+  },
+  immersion: {
+    label: 'Immersion',
+    perRoom: true, // for distributed audio
+    distributedAudio: { low: 1500, high: 3500 }, // per room
+    cinema: { low: 75000, high: 250000 },        // flat
+    listeningRoom: { low: 45000, high: 150000 }  // flat
+  },
+  equilibrium: {
+    label: 'Equilibrium',
+    perZone: true,
+    zones: [
+      { name: 'Essential (2–3 zones)',   low: 3000, high: 5000 },
+      { name: 'Considered (4–6 zones)',  low: 4500, high: 7500 },
+      { name: 'Complete (7+ zones)',      low: 6000, high: 10000 }
+    ],
+    zoneCount: [2.5, 5, 9] // midpoint zone counts for multiply
+  },
+  autonomy: {
+    label: 'Autonomy',
+    flat: true,
+    name: 'Savant Platform',
+    low: 35000,
+    high: 65000
+  },
+  perimeter: {
+    label: 'Perimeter',
+    flat: true,
+    depths: [
+      { name: 'Entry Points',         low: 15000, high: 30000 },
+      { name: 'Full Property',        low: 35000, high: 65000 },
+      { name: 'Complete Awareness',   low: 75000, high: 150000 }
+    ]
+  },
+  continuity: {
+    label: 'Continuity',
+    flat: true,
+    levels: [
+      { name: 'Battery Backup',            low: 25000,  high: 45000 },
+      { name: 'Battery + Generator',        low: 45000,  high: 85000 },
+      { name: 'Full Energy Intelligence',   low: 85000,  high: 175000 }
+    ]
+  }
+};
+
+function formatMoney(n) {
+  if (n >= 1000000) {
+    return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  return '$' + n.toLocaleString('en-US');
+}
+
+function formatRange(low, high) {
+  return formatMoney(low) + ' – ' + formatMoney(high);
+}
+
+function calculateInvestment() {
+  const sel = state.selections;
+  const roomSystems = state.phase2.roomSystems;
+  const rooms = state.phase2.rooms;
+  const result = { categories: [], totalLow: 0, totalHigh: 0, hasData: false };
+
+  // --- AUTONOMY (always included) ---
+  const autonomy = INVESTMENT_PRICING.autonomy;
+  result.categories.push({
+    id: 'autonomy',
+    label: autonomy.label,
+    tierName: autonomy.name,
+    roomCount: null,
+    low: autonomy.low,
+    high: autonomy.high,
+    note: 'Always included — every project',
+    isFlat: true
+  });
+  result.totalLow += autonomy.low;
+  result.totalHigh += autonomy.high;
+  result.hasData = true;
+
+  // --- ILLUMINATION ---
+  if (sel.illumination.tier !== null) {
+    const tier = INVESTMENT_PRICING.illumination.tiers[sel.illumination.tier];
+    // Count rooms with illumination
+    let roomCount = 0;
+    rooms.forEach(r => {
+      const rs = roomSystems[r.name] || [];
+      if (rs.includes('illumination')) roomCount++;
+    });
+    if (roomCount === 0) roomCount = rooms.length; // fallback
+    const low = tier.low * roomCount;
+    const high = tier.high * roomCount;
+    result.categories.push({
+      id: 'illumination',
+      label: 'Illumination',
+      tierName: tier.name,
+      roomCount: roomCount,
+      low: low,
+      high: high,
+      note: formatRange(tier.low, tier.high) + ' × ' + roomCount + ' room' + (roomCount !== 1 ? 's' : ''),
+      isFlat: false
+    });
+    result.totalLow += low;
+    result.totalHigh += high;
+    result.hasData = true;
+  }
+
+  // --- IMMERSION ---
+  const immSel = sel.immersion;
+  let immLow = 0, immHigh = 0;
+  let immParts = [];
+  let hasImm = false;
+
+  // Distributed audio (rooms with immersion system, excluding dedicated theater/listening)
+  const audioRooms = rooms.filter(r => {
+    const rs = roomSystems[r.name] || [];
+    return rs.includes('immersion') && r.name !== 'Theater';
+  });
+  if (audioRooms.length > 0 && (immSel.musicAreas.length > 0 || immSel.cinema === true || immSel.listeningRoom === true)) {
+    const low = INVESTMENT_PRICING.immersion.distributedAudio.low * audioRooms.length;
+    const high = INVESTMENT_PRICING.immersion.distributedAudio.high * audioRooms.length;
+    immLow += low;
+    immHigh += high;
+    immParts.push('Distributed Audio: ' + formatRange(low, high) + ' (' + audioRooms.length + ' room' + (audioRooms.length !== 1 ? 's' : '') + ')');
+    hasImm = true;
+  }
+  if (immSel.cinema === true) {
+    immLow += INVESTMENT_PRICING.immersion.cinema.low;
+    immHigh += INVESTMENT_PRICING.immersion.cinema.high;
+    immParts.push('Cinema: ' + formatRange(INVESTMENT_PRICING.immersion.cinema.low, INVESTMENT_PRICING.immersion.cinema.high));
+    hasImm = true;
+  }
+  if (immSel.listeningRoom === true) {
+    immLow += INVESTMENT_PRICING.immersion.listeningRoom.low;
+    immHigh += INVESTMENT_PRICING.immersion.listeningRoom.high;
+    immParts.push('Listening Room: ' + formatRange(INVESTMENT_PRICING.immersion.listeningRoom.low, INVESTMENT_PRICING.immersion.listeningRoom.high));
+    hasImm = true;
+  }
+  if (hasImm) {
+    let tierDesc = [];
+    if (immSel.cinema) tierDesc.push('Cinema');
+    if (immSel.listeningRoom) tierDesc.push('Listening Room');
+    if (immSel.musicAreas.length > 0) tierDesc.push('Distributed Audio');
+    result.categories.push({
+      id: 'immersion',
+      label: 'Immersion',
+      tierName: tierDesc.join(' + ') || 'Audio',
+      roomCount: audioRooms.length || null,
+      low: immLow,
+      high: immHigh,
+      note: immParts.join(' · '),
+      isFlat: immParts.length === 1
+    });
+    result.totalLow += immLow;
+    result.totalHigh += immHigh;
+    result.hasData = true;
+  }
+
+  // --- EQUILIBRIUM ---
+  if (sel.equilibrium.zones !== null) {
+    const zIdx = sel.equilibrium.zones;
+    const zonePricing = INVESTMENT_PRICING.equilibrium.zones[zIdx];
+    const zoneCount = INVESTMENT_PRICING.equilibrium.zoneCount[zIdx];
+    const low = Math.round(zonePricing.low * zoneCount);
+    const high = Math.round(zonePricing.high * zoneCount);
+    result.categories.push({
+      id: 'equilibrium',
+      label: 'Equilibrium',
+      tierName: zonePricing.name,
+      roomCount: null,
+      low: low,
+      high: high,
+      note: formatRange(zonePricing.low, zonePricing.high) + '/zone × ~' + Math.round(zoneCount) + ' zones',
+      isFlat: false
+    });
+    result.totalLow += low;
+    result.totalHigh += high;
+    result.hasData = true;
+  }
+
+  // --- PERIMETER ---
+  if (sel.perimeter.wanted === true && sel.perimeter.depth !== null) {
+    const depth = INVESTMENT_PRICING.perimeter.depths[sel.perimeter.depth];
+    result.categories.push({
+      id: 'perimeter',
+      label: 'Perimeter',
+      tierName: depth.name,
+      roomCount: null,
+      low: depth.low,
+      high: depth.high,
+      note: 'Flat range — ' + depth.name,
+      isFlat: true
+    });
+    result.totalLow += depth.low;
+    result.totalHigh += depth.high;
+    result.hasData = true;
+  }
+
+  // --- CONTINUITY ---
+  if (sel.continuity.wanted === true && sel.continuity.level !== null) {
+    const level = INVESTMENT_PRICING.continuity.levels[sel.continuity.level];
+    result.categories.push({
+      id: 'continuity',
+      label: 'Continuity',
+      tierName: level.name,
+      roomCount: null,
+      low: level.low,
+      high: level.high,
+      note: 'Flat range — ' + level.name,
+      isFlat: true
+    });
+    result.totalLow += level.low;
+    result.totalHigh += level.high;
+    result.hasData = true;
+  }
+
+  return result;
+}
+
+// ============================================
 // STATE MANAGEMENT
 // ============================================
 
@@ -3960,6 +4539,7 @@ function navigateTo(screenId) {
     if (screenId === 'profile') renderProfile();
     if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
+    if (screenId === 'phase3') renderPhase3();
   }, 350);
 }
 
@@ -4773,6 +5353,56 @@ function capitalize(s) {
 }
 
 // ============================================
+// SCREEN 6: PHASE 3 — INVESTMENT WINDOW
+// ============================================
+
+function renderPhase3() {
+  const inv = calculateInvestment();
+  const breakdown = document.getElementById('investmentBreakdown');
+  const totalSection = document.getElementById('investmentTotal');
+  if (!breakdown || !totalSection) return;
+
+  if (!inv.hasData || inv.categories.length === 0) {
+    breakdown.innerHTML = `
+      <div class="investment-empty">
+        <h3>No selections yet</h3>
+        <p>Go back to the experience phases and make your selections. Your investment window will appear here based on what you choose.</p>
+      </div>
+    `;
+    totalSection.innerHTML = '';
+    return;
+  }
+
+  // Breakdown rows
+  breakdown.innerHTML = inv.categories.map(cat => {
+    const roomsHtml = cat.roomCount !== null
+      ? `<div class="investment-rooms">${cat.roomCount} room${cat.roomCount !== 1 ? 's' : ''} · per-room pricing</div>`
+      : (cat.isFlat ? '<div class="investment-rooms">Flat project range</div>' : '');
+    return `
+      <div class="investment-row">
+        <div class="investment-row-left">
+          <div class="investment-category">${cat.label}</div>
+          <div class="investment-tier">${cat.tierName}</div>
+          ${roomsHtml}
+        </div>
+        <div class="investment-range">
+          ${formatRange(cat.low, cat.high)}
+          <span class="range-note">${cat.note}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Total hero
+  totalSection.innerHTML = `
+    <div class="investment-total-label">Estimated Investment Range</div>
+    <div class="investment-total-amount">${formatRange(inv.totalLow, inv.totalHigh)}</div>
+    <div class="investment-total-note">This is a rough order of magnitude based on your current selections. Actual costs will be determined during the design phase.</div>
+    <div class="investment-always-included">Autonomy / Savant Platform always included</div>
+  `;
+}
+
+// ============================================
 // INITIALIZATION
 // ============================================
 
@@ -4802,6 +5432,7 @@ function init() {
     if (screenId === 'profile') renderProfile();
     if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
+    if (screenId === 'phase3') renderPhase3();
   }
 }
 
@@ -5149,6 +5780,21 @@ function printProfile() {
     if (intake.timeline) html += printLifestyleItem('Timeline', intake.timeline);
   }
   
+  // Investment Summary
+  const inv = calculateInvestment();
+  if (inv.hasData && inv.categories.length > 0) {
+    html += '<div class="print-divider"></div>';
+    html += '<div class="print-section-title">Investment Window</div>';
+    html += '<p style="font-family:\'DM Sans\',sans-serif; font-size:0.78rem; color:#5C5853; font-style:italic; margin-bottom:16px; line-height:1.6;">Rough order of magnitude estimates — not quotes. Every home is different.</p>';
+    inv.categories.forEach(cat => {
+      html += '<div class="print-lifestyle-item"><span class="print-lifestyle-label">' + cat.label + ' — ' + cat.tierName + '</span><span class="print-lifestyle-value">' + formatRange(cat.low, cat.high) + '</span></div>';
+    });
+    html += '<div style="margin-top:16px; padding:20px; background:#161920; border:1px solid rgba(214,160,65,0.25); border-radius:6px; text-align:center;">';
+    html += '<div style="font-family:\'DM Sans\',sans-serif; font-size:0.65rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#5C5853; margin-bottom:8px;">Estimated Investment Range</div>';
+    html += '<div style="font-family:\'Cormorant Garamond\',serif; font-size:2rem; font-weight:300; color:#D6A041;">' + formatRange(inv.totalLow, inv.totalHigh) + '</div>';
+    html += '</div>';
+  }
+  
   html += '<div class="print-footer">Art of Possible | artofpossible.com | Confidential</div>';
   
   printDiv.innerHTML = html;
@@ -5199,7 +5845,7 @@ function removeSystemFromAllRooms(sysKey) {
 // VOICE CONCIERGE WIDGET
 // ============================================
 
-const VOICE_SCREENS = ['welcome', 'tiles', 'deepdive', 'profile', 'rooms', 'phase2']; // voice is primary — show FAB everywhere
+const VOICE_SCREENS = ['welcome', 'tiles', 'deepdive', 'profile', 'rooms', 'phase2', 'phase3']; // voice is primary — show FAB everywhere
 
 function updateVoiceFabVisibility() {
   const fab = document.getElementById('voiceFab');
