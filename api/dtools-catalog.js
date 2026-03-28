@@ -4,7 +4,6 @@
 
 const DTOOLS_BASE = 'https://dtcloudapi.d-tools.cloud/api/v1';
 const DTOOLS_API_KEY = process.env.DTOOLS_API_KEY;
-const DTOOLS_KEY_SET = !!DTOOLS_API_KEY;
 const DTOOLS_BASIC_AUTH = 'RFRDbG91ZEFQSVVzZXI6MyNRdVkrMkR1QCV3Kk15JTU8Yi1aZzlV';
 
 // AOP Category mapping rules
@@ -56,9 +55,9 @@ let catalogCache = null;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 function classifyProduct(product) {
-  const brandRaw = (product.Manufacturer || product.Brand || product.ManufacturerName || '').toLowerCase();
-  const systemRaw = (product.System || product.SystemName || '').toLowerCase();
-  const categoryRaw = (product.Category || product.CategoryName || '').toLowerCase();
+  const brandRaw = (product.brand || product.Manufacturer || product.Brand || product.ManufacturerName || '').toLowerCase();
+  const systemRaw = (product.system || product.System || product.SystemName || '').toLowerCase();
+  const categoryRaw = (product.category || product.Category || product.CategoryName || '').toLowerCase();
 
   for (const [aopCat, rules] of Object.entries(AOP_MAPPING)) {
     // Check brand match
@@ -73,17 +72,17 @@ function classifyProduct(product) {
 
 function mapProduct(product, aopCategory) {
   return {
-    id: product.ProductId || product.Id || product.SKU,
-    name: product.Name || product.ProductName || product.Description,
-    brand: product.Manufacturer || product.Brand || product.ManufacturerName,
-    model: product.Model || product.ModelNumber || product.SKU,
-    description: product.LongDescription || product.Description || product.ShortDescription || '',
+    id: product.id || product.ProductId || product.Id || product.SKU,
+    name: product.name || product.Name || product.ProductName || product.Description,
+    brand: product.brand || product.Manufacturer || product.Brand || product.ManufacturerName,
+    model: product.model || product.Model || product.ModelNumber || product.SKU,
+    description: product.shortDescription || product.description || product.LongDescription || product.Description || '',
     category: aopCategory,
-    unitPrice: parseFloat(product.UnitPrice || product.Price || product.SalePrice || 0),
-    msrp: parseFloat(product.MSRP || product.RetailPrice || product.ListPrice || 0),
-    unitCost: parseFloat(product.UnitCost || product.Cost || 0),
-    system: product.System || product.SystemName || '',
-    images: product.Images || product.ImageUrls || (product.ImageUrl ? [product.ImageUrl] : []),
+    unitPrice: parseFloat(product.unitPrice || product.UnitPrice || product.Price || 0),
+    msrp: parseFloat(product.msrp || product.MSRP || product.RetailPrice || 0),
+    unitCost: parseFloat(product.unitCost || product.UnitCost || product.Cost || 0),
+    system: product.system || product.System || product.SystemName || '',
+    images: product.images || product.Images || product.ImageUrls || [],
   };
 }
 
@@ -172,7 +171,7 @@ function buildSummary(catalog) {
         // ROM ranges: aggregate product prices into project-level estimate
         romLow: Math.round(Math.min(...prices) * 3),
         romHigh: Math.round(Math.max(...prices) * 12),
-        hasliveData: true,
+        hasLiveData: true,
       };
       // Sanity-check: use fallback if computed ROM seems too low
       if (summary[cat].romLow < fallback.low * 0.1) {
@@ -251,7 +250,6 @@ export default async function handler(req, res) {
         source: 'fallback',
         catalog: { illumination: [], immersion: [], equilibrium: [], autonomy: [], perimeter: [], continuity: [] },
         message: 'D-Tools API key not configured.',
-        debug: { keySet: DTOOLS_KEY_SET, keyLen: (DTOOLS_API_KEY || '').length },
       });
     }
 
