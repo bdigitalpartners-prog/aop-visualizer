@@ -367,10 +367,9 @@ async function createFollowUpTask(analysis, contactId, dealId) {
       hs_task_body: taskBody,
       hs_task_status: 'NOT_STARTED',
       hs_task_priority: readiness === 'ready_now' ? 'HIGH' : 'MEDIUM',
-      hs_timestamp: new Date().toISOString(),
+      hs_timestamp: dueDate.toISOString(),
       hs_task_type: 'CALL',
       hubspot_owner_id: CALVIN_OWNER_ID,
-      hs_due_date: dueDate.toISOString().split('T')[0],
     },
   });
 
