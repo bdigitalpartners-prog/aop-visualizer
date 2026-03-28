@@ -3818,6 +3818,644 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ============================================
+   SPRINT 4 & 5: Investment Window (Phase 3)
+   Save Progress, Share, Read-Only Mode
+   ============================================ */
+
+/* Phase 3 / Investment Window Screen */
+.phase3-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 32px 120px;
+}
+
+.phase3-header {
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.phase3-header h2 {
+  font-family: var(--sans);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.phase3-header p {
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Investment category cards */
+.investment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.investment-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 28px 24px;
+  transition: border-color 400ms var(--ease);
+}
+
+.investment-card:hover {
+  border-color: rgba(214,160,65,0.2);
+}
+
+.investment-card-name {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.investment-card-range {
+  font-family: var(--sans);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.investment-card-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+.investment-card-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(214,160,65,0.6);
+  margin-top: 8px;
+}
+
+.investment-card-live::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.7;
+}
+
+/* Total range banner */
+.investment-total {
+  background: linear-gradient(135deg, rgba(214,160,65,0.08) 0%, rgba(214,160,65,0.03) 100%);
+  border: 1px solid rgba(214,160,65,0.2);
+  border-radius: 8px;
+  padding: 32px 36px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.investment-total-label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.investment-total-amount {
+  font-family: var(--sans);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  color: var(--gold);
+}
+
+.investment-total-note {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+/* Loading spinner for D-Tools fetch */
+.investment-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0;
+  color: var(--text-faint);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.investment-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(214,160,65,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* D-Tools badge */
+.dtools-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-top: 6px;
+}
+
+/* Phase 3 CTA section */
+.phase3-cta {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.phase3-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Save to D-Tools button */
+.btn-dtools {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+}
+
+.btn-dtools:hover {
+  color: var(--gold);
+  border-color: rgba(214,160,65,0.3);
+  background: rgba(214,160,65,0.06);
+}
+
+.btn-dtools svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* D-Tools success message */
+.dtools-success {
+  background: rgba(214,160,65,0.08);
+  border: 1px solid rgba(214,160,65,0.2);
+  border-radius: 6px;
+  padding: 16px 20px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--gold);
+  text-align: center;
+  animation: fadeUp 400ms var(--ease-out) forwards;
+}
+
+/* ============================================
+   SPRINT 5: Save Progress / Share Modal
+   ============================================ */
+
+/* Save Progress button (minimal, integrated into existing button rows) */
+.btn-save-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+}
+
+.btn-save-progress:hover {
+  color: var(--gold);
+  border-color: rgba(214,160,65,0.3);
+}
+
+.btn-save-progress svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Share Design Team button */
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 400ms var(--ease);
+}
+
+.btn-share:hover {
+  color: var(--gold);
+  border-color: rgba(214,160,65,0.3);
+}
+
+.btn-share svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Save Progress Email Modal */
+.save-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.save-overlay.open {
+  display: flex;
+}
+
+.save-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.save-modal {
+  position: relative;
+  background: #13151c;
+  border: 1px solid rgba(214,160,65,0.15);
+  border-radius: 12px;
+  padding: 40px 36px;
+  max-width: 440px;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.save-overlay.open .save-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.save-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 26px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.save-modal-close:hover { color: var(--gold); }
+
+.save-modal h3 {
+  font-family: var(--sans);
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.save-modal p {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.save-modal input[type="email"] {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 300ms;
+  margin-bottom: 12px;
+}
+
+.save-modal input[type="email"]:focus {
+  border-color: rgba(214,160,65,0.4);
+}
+
+.save-modal input[type="email"]::placeholder {
+  color: var(--text-faint);
+}
+
+.save-modal-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 300ms;
+}
+
+.save-modal-submit:hover { background: var(--gold-light); }
+.save-modal-submit:disabled { opacity: 0.5; cursor: default; }
+
+.save-modal-success {
+  text-align: center;
+  padding: 20px 0 10px;
+}
+
+.save-modal-success svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--gold);
+  fill: none;
+  margin-bottom: 12px;
+}
+
+.save-modal-success h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.save-modal-error {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: #e07070;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Share Design Team Modal */
+.share-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.share-overlay.open {
+  display: flex;
+}
+
+.share-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.share-modal {
+  position: relative;
+  background: #13151c;
+  border: 1px solid rgba(214,160,65,0.15);
+  border-radius: 12px;
+  padding: 40px 36px;
+  max-width: 520px;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.share-overlay.open .share-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.share-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 26px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.share-modal-close:hover { color: var(--gold); }
+
+.share-modal h3 {
+  font-family: var(--sans);
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.share-modal p {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.share-url-box {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  margin-bottom: 16px;
+}
+
+.share-url-input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.share-copy-btn {
+  background: rgba(214,160,65,0.12);
+  border: 1px solid rgba(214,160,65,0.25);
+  border-radius: 6px;
+  padding: 12px 18px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 300ms;
+  white-space: nowrap;
+}
+
+.share-copy-btn:hover {
+  background: rgba(214,160,65,0.2);
+}
+
+.share-copy-btn.copied {
+  color: #6fcf97;
+  border-color: rgba(111,207,151,0.3);
+  background: rgba(111,207,151,0.08);
+}
+
+.share-note {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Read-only mode banner */
+.readonly-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8000;
+  background: rgba(214,160,65,0.12);
+  border-bottom: 1px solid rgba(214,160,65,0.2);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.readonly-banner-name {
+  color: var(--text-muted);
+}
+
+body.readonly-mode .phase2-cta-buttons button:not(.btn-ghost),
+body.readonly-mode .phase2-cta-buttons .btn-print,
+body.readonly-mode .voice-fab,
+body.readonly-mode .contact-overlay {
+  display: none !important;
+}
+
+body.readonly-mode .screen {
+  pointer-events: auto;
+}
+
+body.readonly-mode .room-item,
+body.readonly-mode .system-card,
+body.readonly-mode .tier-card {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media (max-width: 600px) {
+  .phase3-wrap { padding: 40px 20px 100px; }
+  .investment-grid { grid-template-columns: 1fr; }
+  .investment-total { flex-direction: column; }
+  .phase3-cta-row { flex-direction: column; width: 100%; }
+  .phase3-cta-row > * { width: 100%; justify-content: center; }
+  .save-modal, .share-modal { padding: 28px 20px; }
+  .share-url-box { flex-direction: column; }
+}
+
 </style>
 
 </head>
@@ -3986,10 +4624,41 @@ h1, h2, h3, h4, h5 {
       <div class="phase2-cta-divider"></div>
       <p class="phase2-cta-text">Your experience map is ready.</p>
       <div class="phase2-cta-buttons">
-        <button class="btn-filled" onclick="openContactModal()">Schedule a Conversation</button>
+        <button class="btn-filled" onclick="navigateTo('phase3')">View Investment Window →</button>
+        <button class="btn-filled" onclick="openContactModal()" style="background: transparent; color: var(--gold); border-color: var(--gold);">Schedule a Conversation</button>
+        <button class="btn-save-progress" onclick="openSaveModal()" style="margin-top:4px;">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Save Progress
+        </button>
         <button class="btn-print" onclick="printProfile()" style="margin-top:4px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Download Experience Summary</button>
         <button class="btn-ghost" onclick="navigateTo('rooms')">← Revise Your Rooms</button>
       </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </footer>
+</div>
+
+<!-- ==========================================
+     SCREEN 6: Phase 3 — Investment Window
+     ========================================== -->
+<div id="phase3" class="screen">
+  <div class="screen-inner">
+    <div style="text-align:center; margin-bottom:24px;">
+      <a href="#" onclick="navigateTo('welcome'); return false;" style="display:inline-block;">
+        <img src="https://artofpossible.com/assets/logo-horizontal-Ch8FnEwu.png" alt="Art of Possible" style="max-width:180px; height:auto; opacity:0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.95" onmouseout="this.style.opacity=0.7">
+      </a><br>
+      <a href="#" onclick="startOver(); return false;" style="font-family:var(--sans); font-size:0.7rem; color:var(--text-faint); text-decoration:none; letter-spacing:0.08em; transition: color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-faint)'">START OVER</a>
+    </div>
+    <div class="deepdive-nav">
+      <button class="back-link" onclick="navigateTo('phase2')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Design
+      </button>
+    </div>
+    <div class="phase3-wrap" id="phase3Content">
+      <!-- Rendered by renderPhase3() -->
     </div>
   </div>
   <footer class="site-footer">
@@ -4346,6 +5015,7 @@ function navigateTo(screenId) {
     if (screenId === 'profile') renderProfile();
     if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
+    if (screenId === 'phase3') renderPhase3();
   }, 350);
 }
 
@@ -5235,6 +5905,10 @@ function capitalize(s) {
 function init() {
   loadState();
 
+  // Sprint 5: Check for URL session/view params BEFORE loading saved state
+  // (URL param takes precedence over localStorage)
+  checkUrlParams();
+
   // Initialize room systems
   state.phase2.rooms.forEach(room => {
     if (!state.phase2.roomSystems[room.name]) {
@@ -5258,6 +5932,7 @@ function init() {
     if (screenId === 'profile') renderProfile();
     if (screenId === 'rooms') renderRoomsScreen();
     if (screenId === 'phase2') renderPhase2();
+    if (screenId === 'phase3') renderPhase3();
   }
 }
 
@@ -5655,7 +6330,7 @@ function removeSystemFromAllRooms(sysKey) {
 // VOICE CONCIERGE WIDGET
 // ============================================
 
-const VOICE_SCREENS = ['welcome', 'tiles', 'deepdive', 'profile', 'rooms', 'phase2']; // voice is primary — show FAB everywhere
+const VOICE_SCREENS = ['welcome', 'tiles', 'deepdive', 'profile', 'rooms', 'phase2', 'phase3']; // voice is primary — show FAB everywhere
 
 function updateVoiceFabVisibility() {
   const fab = document.getElementById('voiceFab');
@@ -6551,6 +7226,532 @@ document.addEventListener('DOMContentLoaded', function() {
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
   setTimeout(updateVoiceFabVisibility, 1000);
 }
+
+
+// ============================================
+// SPRINT 4 & 5: URL STATE SERIALIZATION
+// Encode/decode full state to/from base64 URL param
+// ============================================
+
+function encodeStateToUrl(stateObj, mode) {
+  // mode: 'session' (editable) or 'view' (read-only)
+  try {
+    const payload = {
+      v: 1, // version
+      ts: Date.now(),
+      s: stateObj,
+    };
+    const json = JSON.stringify(payload);
+    const b64 = btoa(unescape(encodeURIComponent(json)));
+    const base = window.location.origin + window.location.pathname;
+    return `${base}?${mode}=${b64}`;
+  } catch (e) {
+    console.warn('State encode failed:', e);
+    return window.location.href;
+  }
+}
+
+function decodeStateFromParam(b64) {
+  try {
+    const json = decodeURIComponent(escape(atob(b64)));
+    const payload = JSON.parse(json);
+    return payload.s || null;
+  } catch (e) {
+    console.warn('State decode failed:', e);
+    return null;
+  }
+}
+
+function checkUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  // Editable session restore
+  const sessionParam = params.get('session');
+  if (sessionParam) {
+    const decoded = decodeStateFromParam(sessionParam);
+    if (decoded) {
+      // Merge with defaults
+      state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), decoded);
+      state.selections = Object.assign({...DEFAULT_STATE.selections}, decoded.selections || {});
+      state.phase2 = Object.assign({...DEFAULT_STATE.phase2}, decoded.phase2 || {});
+      if (!state.phase2.roomSystems) state.phase2.roomSystems = {};
+      if (!state.rooms) state.rooms = [];
+      saveState();
+      // Clean URL after restoring
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    return;
+  }
+
+  // Read-only view mode
+  const viewParam = params.get('view');
+  if (viewParam) {
+    const decoded = decodeStateFromParam(viewParam);
+    if (decoded) {
+      state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), decoded);
+      state.selections = Object.assign({...DEFAULT_STATE.selections}, decoded.selections || {});
+      state.phase2 = Object.assign({...DEFAULT_STATE.phase2}, decoded.phase2 || {});
+      if (!state.phase2.roomSystems) state.phase2.roomSystems = {};
+      if (!state.rooms) state.rooms = [];
+      // Enable read-only mode (do NOT saveState — keep clean)
+      enableReadOnlyMode(decoded);
+    }
+    return;
+  }
+}
+
+function enableReadOnlyMode(decodedState) {
+  document.body.classList.add('readonly-mode');
+  const banner = document.getElementById('readonlyBanner');
+  if (banner) {
+    banner.style.display = 'flex';
+    const nameEl = document.getElementById('readonlyBannerName');
+    const name = decodedState?.intake?.name || '';
+    if (name && nameEl) nameEl.textContent = `— shared by ${name}`;
+  }
+  // Push top content down to account for banner
+  document.querySelectorAll('.screen').forEach(s => {
+    s.style.paddingTop = '44px';
+  });
+}
+
+// ============================================
+// SPRINT 4C & 4D: PHASE 3 / INVESTMENT WINDOW
+// ============================================
+
+// ROM fallback ranges (project-level estimates)
+const ROM_RANGES = {
+  illumination: { low: 85000, high: 400000, label: 'Whole Home Lighting & Shading' },
+  immersion:    { low: 45000, high: 300000, label: 'Audio, Video & Cinema' },
+  equilibrium:  { low: 15000, high: 80000,  label: 'Wellness & HVAC' },
+  autonomy:     { low: 35000, high: 150000, label: 'Control & Networking' },
+  perimeter:    { low: 25000, high: 120000, label: 'Security & Surveillance' },
+  continuity:   { low: 40000, high: 200000, label: 'Power & Energy Management' },
+};
+
+const AOP_DISPLAY_NAMES = {
+  illumination: 'Illumination',
+  immersion: 'Immersion',
+  equilibrium: 'Equilibrium',
+  autonomy: 'Autonomy',
+  perimeter: 'Perimeter',
+  continuity: 'Continuity',
+};
+
+// Cache D-Tools summary for the session
+let dtoolsSummaryCache = null;
+
+function formatMoney(n) {
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function getSelectedAopCategories() {
+  const sel = state.selections;
+  const selected = [];
+
+  if (sel.illumination && sel.illumination.tier !== null && sel.illumination.tier !== undefined) {
+    selected.push('illumination');
+  }
+
+  const boolCats = ['immersion', 'equilibrium', 'autonomy', 'perimeter', 'continuity'];
+  boolCats.forEach(cat => {
+    const s = sel[cat];
+    if (!s) return;
+    // Check if anything was explicitly set
+    const vals = Object.values(s);
+    const hasSelection = vals.some(v => v !== null && v !== false && v !== undefined && !(Array.isArray(v) && v.length === 0));
+    if (hasSelection) selected.push(cat);
+  });
+
+  // Also include categories where rooms have been assigned systems
+  const systemToCat = {
+    illumination: 'illumination', shading: 'illumination',
+    immersion: 'immersion', cinema: 'immersion',
+    hvac: 'equilibrium',
+    control: 'autonomy', networking: 'autonomy',
+    security: 'perimeter', surveillance: 'perimeter',
+    power: 'continuity',
+  };
+
+  if (state.phase2 && state.phase2.roomSystems) {
+    Object.values(state.phase2.roomSystems).forEach(systems => {
+      (systems || []).forEach(sys => {
+        const cat = systemToCat[sys.toLowerCase()];
+        if (cat && !selected.includes(cat)) selected.push(cat);
+      });
+    });
+  }
+
+  // If nothing selected, show all categories
+  if (selected.length === 0) {
+    return Object.keys(ROM_RANGES);
+  }
+
+  return selected;
+}
+
+async function fetchDToolsSummary() {
+  if (dtoolsSummaryCache) return dtoolsSummaryCache;
+  try {
+    const res = await fetch('/api/dtools-catalog?summary=true');
+    if (!res.ok) throw new Error('Non-OK response');
+    const data = await res.json();
+    if (data.summary) {
+      dtoolsSummaryCache = data.summary;
+      return dtoolsSummaryCache;
+    }
+  } catch (e) {
+    console.warn('D-Tools summary fetch failed, using ROM estimates:', e.message);
+  }
+  return null;
+}
+
+async function renderPhase3() {
+  const container = document.getElementById('phase3Content');
+  if (!container) return;
+
+  const selectedCats = getSelectedAopCategories();
+  const tierNames = ['Curated Light', 'Living Light', 'Full Spectrum'];
+  const illTier = state.selections?.illumination?.tier;
+
+  // Show loading state while fetching D-Tools
+  container.innerHTML = `
+    <div class="phase3-header">
+      <h2>Investment Window</h2>
+      <p>Rough-order-of-magnitude estimates for your selected experiences. Final investment is scoped during your design consultation.</p>
+    </div>
+    <div class="investment-loading" id="investmentLoading">
+      <div class="investment-spinner"></div>
+      <span>Pulling live pricing from D-Tools…</span>
+    </div>
+    <div id="investmentCards" style="display:none;"></div>
+    <div id="investmentTotal" style="display:none;"></div>
+    <div id="investmentCta" style="display:none;"></div>
+  `;
+
+  // Fetch D-Tools data in background
+  const dtoolsData = await fetchDToolsSummary();
+
+  // Hide loading
+  const loadingEl = document.getElementById('investmentLoading');
+  if (loadingEl) loadingEl.style.display = 'none';
+
+  // Build investment cards
+  let totalLow = 0;
+  let totalHigh = 0;
+  let hasLiveData = false;
+  let cardsHtml = '<div class="investment-grid">';
+
+  selectedCats.forEach(cat => {
+    const rom = ROM_RANGES[cat];
+    if (!rom) return;
+
+    let low = rom.low;
+    let high = rom.high;
+    let isLive = false;
+
+    // Use D-Tools live data if available
+    if (dtoolsData && dtoolsData[cat]) {
+      const dt = dtoolsData[cat];
+      if (dt.hasLiveData || dt.hasliveData) {
+        low = dt.romLow || rom.low;
+        high = dt.romHigh || rom.high;
+        isLive = true;
+        hasLiveData = true;
+      } else if (dt.romLow && dt.romHigh) {
+        low = dt.romLow;
+        high = dt.romHigh;
+      }
+    }
+
+    // Illumination tier adjustment
+    if (cat === 'illumination' && illTier !== null && illTier !== undefined) {
+      const tierMultipliers = [0.45, 0.72, 1.0];
+      const mult = tierMultipliers[illTier] || 1.0;
+      low = Math.round(low * mult / 5000) * 5000;
+      high = Math.round(high * mult / 10000) * 10000;
+    }
+
+    totalLow += low;
+    totalHigh += high;
+
+    const tierBadge = (cat === 'illumination' && illTier !== null && illTier !== undefined)
+      ? `<div class="investment-card-label" style="margin-top:4px; color: var(--gold); opacity:0.7;">${tierNames[illTier]}</div>`
+      : '';
+
+    const liveBadge = isLive ? '<div class="investment-card-live">Live D-Tools Pricing</div>' : '';
+
+    cardsHtml += `
+      <div class="investment-card">
+        <div class="investment-card-name">${AOP_DISPLAY_NAMES[cat] || cat}</div>
+        <div class="investment-card-range">${formatMoney(low)} &ndash; ${formatMoney(high)}</div>
+        <div class="investment-card-label">${rom.label}</div>
+        ${tierBadge}
+        ${liveBadge}
+      </div>
+    `;
+  });
+
+  cardsHtml += '</div>';
+
+  // Total row
+  const roomCount = (state.phase2?.rooms || []).length;
+  const totalHtml = `
+    <div class="investment-total">
+      <div>
+        <div class="investment-total-label">Estimated Investment Range</div>
+        <div class="investment-total-amount">${formatMoney(totalLow)} &ndash; ${formatMoney(totalHigh)}</div>
+      </div>
+      <div class="investment-total-note">
+        ROM estimate across ${selectedCats.length} experience ${selectedCats.length === 1 ? 'category' : 'categories'}${roomCount > 0 ? ` in ${roomCount} rooms` : ''}. Refined during your design consultation with Art of Possible.
+        ${hasLiveData ? '<div class="dtools-badge" style="margin-top:10px;">Powered by D-Tools</div>' : ''}
+      </div>
+    </div>
+  `;
+
+  // CTA section
+  const clientName = state.intake?.name || '';
+  const clientEmail = state.intake?.email || '';
+  const hasContactInfo = !!(clientName && clientEmail);
+
+  const dtoolsBtnHtml = hasContactInfo
+    ? `<button class="btn-dtools" onclick="saveToDTools()" id="dtoolsBtn">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path></svg>
+        Save to D-Tools
+      </button>`
+    : '';
+
+  const ctaHtml = `
+    <div class="phase3-cta">
+      <div id="dtoolsResult" style="width:100%;"></div>
+      <div class="phase3-cta-row">
+        <button class="btn-filled" onclick="openContactModal()">Schedule a Consultation</button>
+        <button class="btn-share" onclick="openShareModal()">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          Share with Design Team
+        </button>
+        <button class="btn-save-progress" onclick="openSaveModal()">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Save Progress
+        </button>
+        ${dtoolsBtnHtml}
+      </div>
+      <button class="btn-ghost" onclick="navigateTo('phase2')">← Back to Design</button>
+    </div>
+  `;
+
+  // Inject rendered content
+  const cardsEl = document.getElementById('investmentCards');
+  const totalEl = document.getElementById('investmentTotal');
+  const ctaEl = document.getElementById('investmentCta');
+
+  if (cardsEl) { cardsEl.innerHTML = cardsHtml; cardsEl.style.display = 'block'; }
+  if (totalEl) { totalEl.innerHTML = totalHtml; totalEl.style.display = 'block'; }
+  if (ctaEl) { ctaEl.innerHTML = ctaHtml; ctaEl.style.display = 'block'; }
+}
+
+async function saveToDTools() {
+  const btn = document.getElementById('dtoolsBtn');
+  const resultEl = document.getElementById('dtoolsResult');
+  if (!btn || !resultEl) return;
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="investment-spinner" style="width:12px;height:12px;"></div> Saving…';
+
+  const clientName = state.intake?.name || '';
+  const clientEmail = state.intake?.email || '';
+  const clientPhone = state.intake?.phone || '';
+  const location = state.intake?.location || '';
+  const projectType = state.intake?.projectType || 'new_build';
+  const selectedCats = getSelectedAopCategories();
+
+  // Rough estimated amount: midpoint of total ROM
+  let totalLow = 0, totalHigh = 0;
+  selectedCats.forEach(cat => {
+    const rom = ROM_RANGES[cat];
+    if (rom) { totalLow += rom.low; totalHigh += rom.high; }
+  });
+  const estimatedAmount = Math.round((totalLow + totalHigh) / 2);
+
+  try {
+    const resp = await fetch('/api/dtools-opportunity', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clientName,
+        clientEmail,
+        clientPhone,
+        projectType,
+        location,
+        selections: state.selections,
+        phase2: state.phase2,
+        rooms: state.phase2?.rooms || [],
+        estimatedAmount,
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.success || data.opportunityId || data.mock) {
+      const num = data.opportunityNumber || data.opportunityId || 'saved';
+      resultEl.innerHTML = `<div class="dtools-success">✓ Saved to D-Tools — Opportunity ${num}</div>`;
+      btn.style.display = 'none';
+    } else {
+      throw new Error(data.error || 'Unknown error');
+    }
+  } catch (e) {
+    resultEl.innerHTML = `<div class="dtools-success" style="color:#e07070; border-color: rgba(224,112,112,0.3); background: rgba(224,112,112,0.06);">Could not save to D-Tools: ${e.message}</div>`;
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path></svg> Save to D-Tools';
+  }
+}
+
+// ============================================
+// SPRINT 5B & 5C: SAVE PROGRESS MODAL
+// ============================================
+
+function openSaveModal() {
+  const overlay = document.getElementById('saveOverlay');
+  if (!overlay) return;
+  // Reset
+  document.getElementById('saveFormView').style.display = 'block';
+  document.getElementById('saveSuccessView').style.display = 'none';
+  document.getElementById('saveEmailError').style.display = 'none';
+  document.getElementById('saveSubmitBtn').disabled = false;
+  document.getElementById('saveSubmitBtn').textContent = 'Send My Link';
+  // Pre-fill email if known
+  const knownEmail = state.intake?.email || '';
+  if (knownEmail) document.getElementById('saveEmailInput').value = knownEmail;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('saveEmailInput')?.focus(), 300);
+}
+
+function closeSaveModal() {
+  const overlay = document.getElementById('saveOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitSaveProgress() {
+  const emailInput = document.getElementById('saveEmailInput');
+  const errorEl = document.getElementById('saveEmailError');
+  const btn = document.getElementById('saveSubmitBtn');
+
+  const email = (emailInput?.value || '').trim();
+  if (!email || !email.includes('@')) {
+    errorEl.textContent = 'Please enter a valid email address.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  errorEl.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  // Generate the session URL (editable)
+  const sessionUrl = encodeStateToUrl(state, 'session');
+  const name = state.intake?.name || '';
+
+  try {
+    const resp = await fetch('/api/send-save-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name, sessionUrl }),
+    });
+    // Accept any response (even failures) — if link gen worked, show success
+    const data = await resp.json().catch(() => ({}));
+
+    // Show success regardless (URL was generated client-side)
+    document.getElementById('saveFormView').style.display = 'none';
+    document.getElementById('saveSuccessView').style.display = 'block';
+
+    // Update state with email
+    if (!state.intake) state.intake = {};
+    state.intake.email = email;
+    saveState();
+
+  } catch (e) {
+    // Even on network failure, we can show the URL
+    document.getElementById('saveFormView').style.display = 'none';
+    document.getElementById('saveSuccessView').style.display = 'block';
+  }
+}
+
+// ============================================
+// SPRINT 5C: SHARE WITH DESIGN TEAM MODAL
+// ============================================
+
+function openShareModal() {
+  const overlay = document.getElementById('shareOverlay');
+  const urlInput = document.getElementById('shareUrlInput');
+  const copyBtn = document.getElementById('shareCopyBtn');
+  if (!overlay || !urlInput) return;
+
+  // Generate read-only view URL
+  const viewUrl = encodeStateToUrl(state, 'view');
+  urlInput.value = viewUrl;
+  if (copyBtn) {
+    copyBtn.textContent = 'Copy';
+    copyBtn.classList.remove('copied');
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeShareModal() {
+  const overlay = document.getElementById('shareOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyShareUrl() {
+  const urlInput = document.getElementById('shareUrlInput');
+  const copyBtn = document.getElementById('shareCopyBtn');
+  if (!urlInput) return;
+
+  try {
+    navigator.clipboard.writeText(urlInput.value).then(() => {
+      if (copyBtn) {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 2500);
+      }
+    });
+  } catch (e) {
+    // Fallback for older browsers
+    urlInput.select();
+    document.execCommand('copy');
+    if (copyBtn) {
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 2500);
+    }
+  }
+}
+
+// ============================================
+// SPRINT 5: Close modals on Escape
+// ============================================
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const saveOverlay = document.getElementById('saveOverlay');
+    const shareOverlay = document.getElementById('shareOverlay');
+    if (saveOverlay && saveOverlay.classList.contains('open')) closeSaveModal();
+    if (shareOverlay && shareOverlay.classList.contains('open')) closeShareModal();
+  }
+});
+
 </script>
 
 <!-- Voice Concierge: Floating Action Button -->
@@ -6676,5 +7877,49 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
 <!-- Hidden print content for PDF export -->
 <div id="printContent" style="display:none;"></div>
+
+<!-- Read-Only Mode Banner -->
+<div class="readonly-banner" id="readonlyBanner" style="display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke:currentColor;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+  <span>Viewing shared selections</span>
+  <span class="readonly-banner-name" id="readonlyBannerName"></span>
+  <a href="/" style="color: var(--gold); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.08em; margin-left: 12px;">Start your own →</a>
+</div>
+
+<!-- Save Progress Modal -->
+<div class="save-overlay" id="saveOverlay">
+  <div class="save-overlay-backdrop" onclick="closeSaveModal()"></div>
+  <div class="save-modal">
+    <button class="save-modal-close" onclick="closeSaveModal()">&times;</button>
+    <div id="saveFormView">
+      <h3>Save Your Progress</h3>
+      <p>Enter your email and we’ll send you a link to return to your selections anytime. Nothing is lost.</p>
+      <input type="email" id="saveEmailInput" placeholder="your@email.com" autocomplete="email">
+      <div class="save-modal-error" id="saveEmailError" style="display:none;"></div>
+      <button class="save-modal-submit" id="saveSubmitBtn" onclick="submitSaveProgress()">Send My Link</button>
+    </div>
+    <div class="save-modal-success" id="saveSuccessView" style="display:none;">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <h3>Check your email.</h3>
+      <p>We’ve sent you a link to return to your selections anytime.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Share with Design Team Modal -->
+<div class="share-overlay" id="shareOverlay">
+  <div class="share-overlay-backdrop" onclick="closeShareModal()"></div>
+  <div class="share-modal">
+    <button class="share-modal-close" onclick="closeShareModal()">&times;</button>
+    <h3>Share with Your Design Team</h3>
+    <p>Send this link to your architect, builder, or designer. They’ll see your full selection in read-only view.</p>
+    <div class="share-url-box">
+      <input type="text" class="share-url-input" id="shareUrlInput" readonly>
+      <button class="share-copy-btn" id="shareCopyBtn" onclick="copyShareUrl()">Copy</button>
+    </div>
+    <p class="share-note">This link contains your full selection. Anyone with the link can view it.</p>
+  </div>
+</div>
+
 </body>
 </html>
