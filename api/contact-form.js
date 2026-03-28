@@ -134,13 +134,32 @@ async function createOrUpdateContact({ firstName, lastName, email, phone, locati
   const existing = await findContactByEmail(email) || await findContactByPhone(phone);
 
   if (existing) {
-    const updated = await hubspot('PATCH', `/crm/v3/objects/contacts/${existing.id}`, { properties });
+    // Don't re-set email if it already matches — avoids HubSpot duplicate errors
+    const updateProps = { ...properties };
+    if (existing.properties?.email === email) delete updateProps.email;
+    const updated = await hubspot('PATCH', `/crm/v3/objects/contacts/${existing.id}`, { properties: updateProps });
     console.log(`Updated contact ${existing.id}`);
     return updated;
   } else {
-    const contact = await hubspot('POST', '/crm/v3/objects/contacts', { properties });
-    console.log(`Created contact ${contact.id}`);
-    return contact;
+    try {
+      const contact = await hubspot('POST', '/crm/v3/objects/contacts', { properties });
+      console.log(`Created contact ${contact.id}`);
+      return contact;
+    } catch (err) {
+      // If creation fails due to duplicate email, try to find and update
+      if (err.message && err.message.includes('already has that value')) {
+        console.warn('Duplicate email detected, retrying search...');
+        const retry = await findContactByEmail(email);
+        if (retry) {
+          const retryProps = { ...properties };
+          delete retryProps.email;
+          const updated = await hubspot('PATCH', `/crm/v3/objects/contacts/${retry.id}`, { properties: retryProps });
+          console.log(`Updated contact ${retry.id} (after duplicate error)`);
+          return updated;
+        }
+      }
+      throw err;
+    }
   }
 }
 
