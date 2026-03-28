@@ -1816,8 +1816,38 @@ h1, h2, h3, h4, h5 {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: background-image 1.2s ease, opacity 0.8s ease;
+  transition: opacity 0.6s ease;
   opacity: 1;
+}
+
+/* Slideshow crossfade layers */
+.voice-slide-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.6s ease;
+}
+.voice-slide-layer.fade-out {
+  opacity: 0;
+}
+.voice-slide-counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.voice-slide-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(214,160,65,0.35);
+  transition: background 0.3s;
+}
+.voice-slide-dot.active {
+  background: var(--gold);
 }
 
 .voice-visual-img::after {
@@ -3181,6 +3211,117 @@ h1, h2, h3, h4, h5 {
 .showcase-card:nth-child(2) { animation-delay: 920ms; }
 .showcase-card:nth-child(3) { animation-delay: 1040ms; }
 
+/* Serenbe Showhouse card — gold bordered special card */
+.showhouse-card {
+  grid-column: 1 / -1;
+  position: relative;
+  background: linear-gradient(135deg, rgba(214,160,65,0.07) 0%, rgba(214,160,65,0.03) 100%);
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.showhouse-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(214,160,65,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.showhouse-card-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--gold-dim);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+.showhouse-card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.showhouse-card-body h4 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.showhouse-card-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+.showhouse-card-body p {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-width: 600px;
+}
+.showhouse-card-cta {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(214,160,65,0.35);
+  padding-bottom: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.showhouse-card-cta:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+/* Before/After Comparison Slider */
+.ba-section {
+  margin: 40px 0 8px;
+}
+.ba-section-header {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.ba-section-sub {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  text-align: center;
+  margin-bottom: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ba-slider { position: relative; width: 100%; max-width: 700px; margin: 24px auto 32px; overflow: hidden; border-radius: 12px; aspect-ratio: 16/10; cursor: ew-resize; user-select: none; }
+.ba-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ba-slider .ba-after { clip-path: inset(0 0 0 50%); transition: clip-path 0s; }
+.ba-slider .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: var(--gold); z-index: 10; pointer-events: none; }
+.ba-slider .ba-handle::after { content: '⟺'; display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: var(--gold); border: 2px solid rgba(255,255,255,0.5); box-shadow: 0 2px 10px rgba(0,0,0,0.4); color: #0E1015; font-size: 14px; font-weight: bold; }
+.ba-label { position: absolute; bottom: 12px; padding: 4px 12px; background: rgba(14,16,21,0.75); color: var(--text); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 4px; z-index: 5; font-family: var(--sans); }
+.ba-label.before { left: 12px; }
+.ba-label.after { right: 12px; }
+
 @media (max-width: 1024px) {
   .showcase-grid {
     grid-template-columns: 1fr;
@@ -4318,7 +4459,45 @@ function renderDeepDive(categoryId) {
       html += '<p class="showcase-desc">' + item.desc + '</p>';
       html += '</div>';
     });
+
+    // Serenbe Showhouse card — Illumination and Immersion only
+    if (categoryId === 'illumination' || categoryId === 'immersion') {
+      html += `
+        <div class="showhouse-card">
+          <div class="showhouse-card-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="showhouse-card-body">
+            <div class="showhouse-card-eyebrow">Serenbe, Georgia • Live Experience</div>
+            <h4>The Serenbe Show Home</h4>
+            <p>Our Serenbe show home features a motorized painting that reveals a hidden display, Full Spectrum Ketra lighting throughout, and a dedicated reference cinema. Experience the full Art of Possible in person before you decide.</p>
+            <span class="showhouse-card-cta" onclick="window.open('https://artofpossible.com/contact', '_blank')">Schedule a Private Tour →</span>
+          </div>
+        </div>
+      `;
+    }
+
     html += '</div></div>';
+  }
+
+  // Before/After comparison slider — Illumination only
+  if (categoryId === 'illumination') {
+    html += `
+      <div class="ba-section">
+        <p class="ba-section-header">The difference lighting makes</p>
+        <p class="ba-section-sub">Drag to compare — standard overhead vs. Ketra full-spectrum</p>
+        <div class="ba-slider" id="baSliderIllumination">
+          <img class="ba-before" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1400&q=80" alt="Before: Standard overhead lighting" loading="lazy">
+          <img class="ba-after" src="https://www.lutron.com/sites/default/files/2025-10/living-room-palm-beach-estate-5623.jpg" alt="After: Ketra full-spectrum lighting" loading="lazy">
+          <div class="ba-handle"></div>
+          <span class="ba-label before">Standard</span>
+          <span class="ba-label after">Ketra</span>
+        </div>
+      </div>
+    `;
   }
 
   // Gold gradient divider before decision section
@@ -4446,12 +4625,44 @@ function renderDeepDive(categoryId) {
 
   container.innerHTML = html;
 
+  // Initialize Before/After slider for Illumination
+  if (categoryId === 'illumination') {
+    const baContainer = document.getElementById('baSliderIllumination');
+    if (baContainer) initBeforeAfter(baContainer);
+  }
+
   // Mark as explored
   const wasNewlyExplored = !state.explored.includes(categoryId);
   if (wasNewlyExplored) {
     state.explored.push(categoryId);
     saveState();
   }
+}
+
+// ============================================
+// BEFORE/AFTER SLIDER
+// ============================================
+function initBeforeAfter(container) {
+  const afterImg = container.querySelector('.ba-after');
+  const handle = container.querySelector('.ba-handle');
+  if (!afterImg || !handle) return;
+  let isDragging = false;
+
+  function updatePosition(x) {
+    const rect = container.getBoundingClientRect();
+    let pct = ((x - rect.left) / rect.width) * 100;
+    pct = Math.max(5, Math.min(95, pct));
+    afterImg.style.clipPath = `inset(0 0 0 ${pct}%)`;
+    handle.style.left = pct + '%';
+  }
+
+  container.addEventListener('mousedown', (e) => { isDragging = true; updatePosition(e.clientX); });
+  container.addEventListener('touchstart', (e) => { isDragging = true; updatePosition(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+  window.addEventListener('touchend', () => { isDragging = false; });
+  container.addEventListener('mousemove', (e) => { if (isDragging) updatePosition(e.clientX); });
+  container.addEventListener('touchmove', (e) => { if (isDragging) updatePosition(e.touches[0].clientX); }, { passive: true });
+  container.addEventListener('click', (e) => updatePosition(e.clientX));
 }
 
 // ============================================
@@ -5775,16 +5986,30 @@ let retellWebClient = null;
 let isCallActive = false;
 let currentVisualTopic = 'welcome';
 
-// Voice visual slideshow — maps conversation topics to images
+// ============================================
+// SPRINT 3: VISUAL EXPERIENCE LAYER
+// ============================================
+
+// Voice visual slideshow — maps conversation topics to multi-image galleries
 const VOICE_VISUALS = {
   welcome: {
-    image: 'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+    images: [
+      'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+      'https://www.lutron.com/sites/default/files/2025-10/living-room-palm-beach-estate-5623.jpg',
+      'https://www.ketra.com/sites/default/files/2024-03/desktop-hero-vibrancy.jpg'
+    ],
     label: 'Art of Possible',
     sublabel: 'Imagine what your home could become',
     bullets: []
   },
   illumination: {
-    image: 'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+    images: [
+      'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+      'https://www.lutron.com/sites/default/files/2025-10/bedroom-palm-beach-estate-5618.jpg',
+      'https://www.lutron.com/sites/default/files/2025-10/living-room-palm-beach-estate-5623.jpg',
+      'https://www.ketra.com/sites/default/files/2024-03/desktop-hero-vibrancy.jpg',
+      'https://www.lutron.com/sites/default/files/2025-10/guest-house-palm-beach-estate-5633.jpg'
+    ],
     label: 'Illumination',
     sublabel: 'Light that breathes with your day',
     bullets: [
@@ -5796,7 +6021,13 @@ const VOICE_VISUALS = {
     ]
   },
   immersion: {
-    image: 'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png',
+    images: [
+      'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png',
+      'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',
+      'https://www.focal.com/sites/www.focal.fr/files/shared/catalog/document/grande-utopia-em-evo-header-desktop_0.jpg',
+      'https://www.naimaudio.com/sites/default/files/2023-11/hero-statement.jpg',
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=1200&q=80'
+    ],
     label: 'Immersion',
     sublabel: 'Sound and cinema that surround you',
     bullets: [
@@ -5808,7 +6039,11 @@ const VOICE_VISUALS = {
     ]
   },
   equilibrium: {
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80'
+    ],
     label: 'Equilibrium',
     sublabel: 'Your body simply feels right',
     bullets: [
@@ -5820,7 +6055,11 @@ const VOICE_VISUALS = {
     ]
   },
   autonomy: {
-    image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80'
+    ],
     label: 'Autonomy',
     sublabel: 'The residential operating system',
     bullets: [
@@ -5832,7 +6071,11 @@ const VOICE_VISUALS = {
     ]
   },
   perimeter: {
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80'
+    ],
     label: 'Perimeter',
     sublabel: 'Intelligent, not intrusive',
     bullets: [
@@ -5844,7 +6087,11 @@ const VOICE_VISUALS = {
     ]
   },
   continuity: {
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c0?w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1200&q=80'
+    ],
     label: 'Continuity',
     sublabel: 'A home that never goes dark',
     bullets: [
@@ -5856,11 +6103,14 @@ const VOICE_VISUALS = {
     ]
   },
   videowall: {
-    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',
+      'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=80'
+    ],
     label: 'MicroLED Video Wall',
     sublabel: 'Just Video Walls — Masterpiece Experiences',
     bullets: [
-      'Scale to any size — 150", 200", full wall',
+      'Scale to any size — 150”, 200”, full wall',
       'Digital art gallery by day',
       'Reference cinema by night',
       '12-bit color, 120fps, HDR',
@@ -5868,7 +6118,10 @@ const VOICE_VISUALS = {
     ]
   },
   complete: {
-    image: 'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+    images: [
+      'https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg',
+      'https://www.lutron.com/sites/default/files/2025-10/living-room-palm-beach-estate-5623.jpg'
+    ],
     label: 'Experience Profile Complete',
     sublabel: 'Your preferences have been captured',
     bullets: [
@@ -5879,58 +6132,263 @@ const VOICE_VISUALS = {
   }
 };
 
-// Keyword map for detecting conversation topics
-const TOPIC_KEYWORDS = {
-  illumination: ['light', 'lighting', 'ketra', 'lutron', 'shade', 'shading', 'circadian', 'sunrise', 'spectrum', 'vibrancy', 'dimming', 'illumination', 'natural light'],
-  immersion: ['sound', 'audio', 'music', 'cinema', 'theater', 'theatre', 'movie', 'speaker', 'surround', 'dolby', 'atmos', 'listening', 'immersion', 'video wall', 'microled', 'just video walls'],
-  equilibrium: ['temperature', 'climate', 'thermostat', 'air', 'humidity', 'comfort', 'sleep', 'cooler', 'warmer', 'hvac', 'equilibrium', 'water', 'filtered'],
-  autonomy: ['control', 'savant', 'automation', 'scene', 'goodnight', 'voice control', 'app', 'operating system', 'autonomy', 'intelligence', 'ai', 'jarvis'],
-  perimeter: ['security', 'camera', 'gate', 'lock', 'access', 'monitor', 'protection', 'surveillance', 'perimeter', 'safe'],
-  continuity: ['power', 'battery', 'generator', 'outage', 'backup', 'storm', 'energy', 'circuit', 'grid', 'continuity', 'savant power'],
-  videowall: ['video wall', 'microled', 'micro led', 'just video walls', 'led wall', 'digital canvas', 'art wall']
+// Sub-topic keyword detection — overrides main topic image for 8 seconds
+// when specific brands/products are mentioned
+const SUBTOPIC_VISUALS = {
+  ketra:     { image: 'https://www.ketra.com/sites/default/files/2024-03/desktop-hero-vibrancy.jpg',      label: 'Ketra Vibrancy', parentTopic: 'illumination' },
+  vibrancy:  { image: 'https://www.ketra.com/sites/default/files/2024-03/desktop-hero-vibrancy.jpg',      label: 'Ketra Vibrancy', parentTopic: 'illumination' },
+  focal:     { image: 'https://www.focal.com/sites/www.focal.fr/files/shared/catalog/document/grande-utopia-em-evo-header-desktop_0.jpg', label: 'Focal Grande Utopia', parentTopic: 'immersion' },
+  'grande utopia': { image: 'https://www.focal.com/sites/www.focal.fr/files/shared/catalog/document/grande-utopia-em-evo-header-desktop_0.jpg', label: 'Focal Grande Utopia', parentTopic: 'immersion' },
+  naim:      { image: 'https://www.naimaudio.com/sites/default/files/2023-11/hero-statement.jpg',        label: 'Naim Statement', parentTopic: 'immersion' },
+  statement: { image: 'https://www.naimaudio.com/sites/default/files/2023-11/hero-statement.jpg',        label: 'Naim Statement', parentTopic: 'immersion' },
+  barco:     { image: 'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png', label: 'Barco Reference Cinema', parentTopic: 'immersion' },
+  cinema:    { image: 'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png', label: 'Reference Cinema', parentTopic: 'immersion' },
+  theater:   { image: 'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png', label: 'Reference Cinema', parentTopic: 'immersion' },
+  theatre:   { image: 'https://www.avnation.tv/wp-content/uploads/2026/01/Barco_Residential_Runar_HomeTheater.png', label: 'Reference Cinema', parentTopic: 'immersion' },
+  'video wall':  { image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80',    label: 'MicroLED Video Wall', parentTopic: 'videowall' },
+  microled:      { image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=80',   label: 'MicroLED Video Wall', parentTopic: 'videowall' },
+  'micro led':   { image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=80',   label: 'MicroLED Video Wall', parentTopic: 'videowall' },
+  'coastal source': { image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80', label: 'Coastal Source Outdoor Audio', parentTopic: 'immersion' }
 };
+
+// Keyword map for detecting conversation topics (expanded with granular sub-topics)
+const TOPIC_KEYWORDS = {
+  illumination: ['light', 'lighting', 'ketra', 'lutron', 'shade', 'shading', 'circadian', 'sunrise', 'spectrum', 'vibrancy', 'dimming', 'illumination', 'natural light', 'kelvin', 'tunable', 'color temperature', 'palladiom'],
+  immersion:    ['sound', 'audio', 'music', 'cinema', 'theater', 'theatre', 'movie', 'speaker', 'surround', 'dolby', 'atmos', 'listening', 'immersion', 'video wall', 'microled', 'just video walls', 'focal', 'naim', 'barco', 'coastal source', 'grande utopia', 'statement', 'subwoofer', 'amplifier', 'hi-fi', 'hifi'],
+  equilibrium:  ['temperature', 'climate', 'thermostat', 'air', 'humidity', 'comfort', 'sleep', 'cooler', 'warmer', 'hvac', 'equilibrium', 'water', 'filtered', 'purification', 'air quality', 'ventilation'],
+  autonomy:     ['control', 'savant', 'automation', 'scene', 'goodnight', 'voice control', 'app', 'operating system', 'autonomy', 'intelligence', 'ai', 'jarvis', 'smart home', 'one touch', 'keypad', 'remote'],
+  perimeter:    ['security', 'camera', 'gate', 'lock', 'access', 'monitor', 'protection', 'surveillance', 'perimeter', 'safe', 'alarm', 'detect', 'recognition', 'entry'],
+  continuity:   ['power', 'battery', 'generator', 'outage', 'backup', 'storm', 'energy', 'circuit', 'grid', 'continuity', 'savant power', 'solar', 'storage', 'failover', 'peak'],
+  videowall:    ['video wall', 'microled', 'micro led', 'just video walls', 'led wall', 'digital canvas', 'art wall', 'led display', 'micro led panel']
+};
+
+// ============================================
+// SLIDESHOW STATE
+// ============================================
+let slideshowInterval = null;
+let currentSlideIndex = 0;
+let slideshowPaused = false;
+let subtopicRevertTimeout = null;
+
+// ============================================
+// IMAGE PRELOADING
+// ============================================
+function preloadVoiceImages() {
+  const allUrls = [];
+  // Preload first image from each topic immediately
+  Object.values(VOICE_VISUALS).forEach(v => {
+    if (v.images && v.images.length > 0) allUrls.push(v.images[0]);
+  });
+  allUrls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+}
+
+function preloadAllVoiceImages() {
+  Object.values(VOICE_VISUALS).forEach(v => {
+    if (v.images) v.images.forEach(url => {
+      const img = new Image();
+      img.src = url;
+    });
+  });
+  Object.values(SUBTOPIC_VISUALS).forEach(v => {
+    if (v.image) {
+      const img = new Image();
+      img.src = v.image;
+    }
+  });
+}
+
+// Preload first images on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', preloadVoiceImages);
+} else {
+  preloadVoiceImages();
+}
+
+// ============================================
+// SLIDESHOW RENDERING
+// ============================================
+
+function buildSlideDots(count, activeIndex) {
+  if (count <= 1) return '';
+  let dots = '<div class="voice-slide-counter">';
+  for (let i = 0; i < count; i++) {
+    dots += `<div class="voice-slide-dot${i === activeIndex ? ' active' : ''}"></div>`;
+  }
+  dots += '</div>';
+  return dots;
+}
+
+function setSlideImage(imageUrl, activeIndex, totalCount) {
+  const panel = document.getElementById('voiceVisualPanel');
+  if (!panel) return;
+
+  // Get or create layers
+  let layerA = panel.querySelector('.voice-slide-layer.layer-a');
+  let layerB = panel.querySelector('.voice-slide-layer.layer-b');
+  let imgEl = document.getElementById('voiceVisualImg');
+
+  // Use the existing voiceVisualImg div as the primary layer
+  // We'll crossfade using opacity on the main layer
+  if (imgEl) {
+    imgEl.style.opacity = '0';
+    setTimeout(() => {
+      imgEl.style.backgroundImage = `url('${imageUrl}')`;
+      imgEl.style.opacity = '1';
+    }, 300);
+  }
+
+  // Update dots
+  let dotsEl = panel.querySelector('.voice-slide-counter');
+  if (dotsEl) {
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < totalCount; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'voice-slide-dot' + (i === activeIndex ? ' active' : '');
+      dotsEl.appendChild(dot);
+    }
+  } else if (totalCount > 1) {
+    dotsEl = document.createElement('div');
+    dotsEl.className = 'voice-slide-counter';
+    for (let i = 0; i < totalCount; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'voice-slide-dot' + (i === activeIndex ? ' active' : '');
+      dotsEl.appendChild(dot);
+    }
+    panel.appendChild(dotsEl);
+  }
+}
+
+function stopSlideshow() {
+  if (slideshowInterval) {
+    clearInterval(slideshowInterval);
+    slideshowInterval = null;
+  }
+}
+
+function startSlideshow(visual) {
+  stopSlideshow();
+  currentSlideIndex = 0;
+  slideshowPaused = false;
+  if (!visual || !visual.images || visual.images.length <= 1) return;
+
+  slideshowInterval = setInterval(() => {
+    if (slideshowPaused) return;
+    currentSlideIndex = (currentSlideIndex + 1) % visual.images.length;
+    setSlideImage(visual.images[currentSlideIndex], currentSlideIndex, visual.images.length);
+  }, 5000);
+}
 
 function updateVoiceVisual(topic) {
   if (topic === currentVisualTopic) return;
   currentVisualTopic = topic;
   const visual = VOICE_VISUALS[topic] || VOICE_VISUALS.welcome;
-  const imgEl = document.getElementById('voiceVisualImg');
   const labelEl = document.getElementById('voiceVisualLabel');
   const sublabelEl = document.getElementById('voiceVisualSublabel');
-  
-  // Fade out
-  imgEl.style.opacity = '0';
-  labelEl.style.opacity = '0';
-  sublabelEl.style.opacity = '0';
-  
+
+  // Stop any existing subtopic revert
+  if (subtopicRevertTimeout) {
+    clearTimeout(subtopicRevertTimeout);
+    subtopicRevertTimeout = null;
+  }
+
+  // Fade label/sublabel out
+  if (labelEl) labelEl.style.opacity = '0';
+  if (sublabelEl) sublabelEl.style.opacity = '0';
+
+  // Start new slideshow rotation for this topic
+  currentSlideIndex = 0;
+  const firstImage = visual.images && visual.images.length > 0 ? visual.images[0] : '';
+  setSlideImage(firstImage, 0, visual.images ? visual.images.length : 1);
+  startSlideshow(visual);
+
   setTimeout(() => {
-    imgEl.style.backgroundImage = `url('${visual.image}')`;
-    labelEl.textContent = visual.label;
-    // Build sublabel with bullets
-    let sublabelHTML = `<span style="display:block; margin-bottom:6px;">${visual.sublabel}</span>`;
-    if (visual.bullets && visual.bullets.length > 0) {
-      sublabelHTML += visual.bullets.map(b => 
-        `<span style="display:block; font-size:0.75rem; color:var(--text-muted); margin:3px 0; padding-left:12px; position:relative;"><span style="position:absolute; left:0; color:var(--gold);">\u2022</span>${b}</span>`
-      ).join('');
+    if (labelEl) { labelEl.textContent = visual.label; labelEl.style.opacity = '1'; }
+    if (sublabelEl) {
+      let sublabelHTML = `<span style="display:block; margin-bottom:6px;">${visual.sublabel}</span>`;
+      if (visual.bullets && visual.bullets.length > 0) {
+        sublabelHTML += visual.bullets.map(b =>
+          `<span style="display:block; font-size:0.75rem; color:var(--text-muted); margin:3px 0; padding-left:12px; position:relative;"><span style="position:absolute; left:0; color:var(--gold);">\u2022</span>${b}</span>`
+        ).join('');
+      }
+      sublabelEl.innerHTML = sublabelHTML;
+      sublabelEl.style.opacity = '1';
     }
-    sublabelEl.innerHTML = sublabelHTML;
-    // Fade in
-    imgEl.style.opacity = '1';
-    labelEl.style.opacity = '1';
-    sublabelEl.style.opacity = '1';
   }, 400);
+}
+
+function showSubtopicVisual(subtopicKey) {
+  const sv = SUBTOPIC_VISUALS[subtopicKey];
+  if (!sv) return;
+
+  // Pause the main rotation temporarily
+  slideshowPaused = true;
+
+  // Show the subtopic image
+  const imgEl = document.getElementById('voiceVisualImg');
+  const labelEl = document.getElementById('voiceVisualLabel');
+  if (imgEl) {
+    imgEl.style.opacity = '0';
+    setTimeout(() => {
+      imgEl.style.backgroundImage = `url('${sv.image}')`;
+      imgEl.style.opacity = '1';
+    }, 300);
+  }
+  if (labelEl) {
+    labelEl.style.opacity = '0';
+    setTimeout(() => {
+      labelEl.textContent = sv.label;
+      labelEl.style.opacity = '1';
+    }, 300);
+  }
+
+  // Revert to main topic rotation after 8 seconds
+  if (subtopicRevertTimeout) clearTimeout(subtopicRevertTimeout);
+  subtopicRevertTimeout = setTimeout(() => {
+    slideshowPaused = false;
+    subtopicRevertTimeout = null;
+  }, 8000);
 }
 
 function detectAndUpdateVisual(transcriptLines) {
   if (!transcriptLines || transcriptLines.length === 0) return;
-  
+
   // Look at the last 3 transcript entries for topic detection
   const recentText = transcriptLines.slice(-3).map(t => t.content.toLowerCase()).join(' ');
-  
-  // Check each topic's keywords — last match wins (most recent topic)
+
+  // First check for sub-topic keywords (highest specificity)
+  for (const [key] of Object.entries(SUBTOPIC_VISUALS)) {
+    if (recentText.includes(key)) {
+      const sv = SUBTOPIC_VISUALS[key];
+      // Switch main topic if needed
+      if (sv.parentTopic && sv.parentTopic !== currentVisualTopic) {
+        currentVisualTopic = sv.parentTopic;
+        const visual = VOICE_VISUALS[sv.parentTopic];
+        stopSlideshow();
+        startSlideshow(visual);
+        // Update sublabel
+        const sublabelEl = document.getElementById('voiceVisualSublabel');
+        if (sublabelEl && visual) {
+          let sublabelHTML = `<span style="display:block; margin-bottom:6px;">${visual.sublabel}</span>`;
+          if (visual.bullets && visual.bullets.length > 0) {
+            sublabelHTML += visual.bullets.map(b =>
+              `<span style="display:block; font-size:0.75rem; color:var(--text-muted); margin:3px 0; padding-left:12px; position:relative;"><span style="position:absolute; left:0; color:var(--gold);">\u2022</span>${b}</span>`
+            ).join('');
+          }
+          sublabelEl.innerHTML = sublabelHTML;
+        }
+      }
+      showSubtopicVisual(key);
+      return;
+    }
+  }
+
+  // Then check main topic keywords
   let detectedTopic = null;
   let latestMatchPos = -1;
-  
+
   for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
     for (const keyword of keywords) {
       const pos = recentText.lastIndexOf(keyword);
@@ -5940,7 +6398,7 @@ function detectAndUpdateVisual(transcriptLines) {
       }
     }
   }
-  
+
   if (detectedTopic && detectedTopic !== currentVisualTopic) {
     updateVoiceVisual(detectedTopic);
   }
@@ -5990,6 +6448,10 @@ async function handleMicClick() {
       // Activate visual slideshow
       document.getElementById('voiceVisualPanel').classList.add('active');
       document.getElementById('voiceModal').classList.add('call-active');
+      // Preload all voice images now that a call has connected
+      preloadAllVoiceImages();
+      // Reset topic so updateVoiceVisual fires fresh
+      currentVisualTopic = null;
       updateVoiceVisual('welcome');
     });
 
@@ -5997,7 +6459,9 @@ async function handleMicClick() {
       isCallActive = false;
       micBtn.classList.remove('listening');
       micLabel.textContent = 'Call complete — your preferences have been captured';
-      // Show completion visual
+      // Stop slideshow rotation and show completion visual
+      stopSlideshow();
+      currentVisualTopic = null;
       updateVoiceVisual('complete');
       setTimeout(() => {
         document.getElementById('voiceModal').classList.remove('call-active');
@@ -6109,6 +6573,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     <!-- Visual slideshow panel (shows during active call) -->
     <div class="voice-visual-panel" id="voiceVisualPanel">
       <div class="voice-visual-img" id="voiceVisualImg" style="background-image: url('https://www.lutron.com/sites/default/files/2025-11/kitchen-east-hampton-with-dining-room-7517.jpg');"></div>
+      <div class="voice-slide-counter" id="voiceSlideDots"></div>
       <div class="voice-visual-label" id="voiceVisualLabel">Art of Possible</div>
       <div class="voice-visual-sublabel" id="voiceVisualSublabel">Your voice concierge is ready</div>
     </div>
