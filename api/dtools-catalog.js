@@ -4,6 +4,7 @@
 
 const DTOOLS_BASE = 'https://dtcloudapi.d-tools.cloud/api/v1';
 const DTOOLS_API_KEY = process.env.DTOOLS_API_KEY;
+const DTOOLS_KEY_SET = !!DTOOLS_API_KEY;
 const DTOOLS_BASIC_AUTH = 'RFRDbG91ZEFQSVVzZXI6MyNRdVkrMkR1QCV3Kk15JTU8Yi1aZzlV';
 
 // AOP Category mapping rules
@@ -250,6 +251,7 @@ export default async function handler(req, res) {
         source: 'fallback',
         catalog: { illumination: [], immersion: [], equilibrium: [], autonomy: [], perimeter: [], continuity: [] },
         message: 'D-Tools API key not configured.',
+        debug: { keySet: DTOOLS_KEY_SET, keyLen: (DTOOLS_API_KEY || '').length },
       });
     }
 
